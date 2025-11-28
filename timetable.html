@@ -8,46 +8,31 @@
     <link rel="icon" href="assets/img/logo-placeholder.png">
 
     <style>
-        /* --- 1. LAYOUT FIX (Widen the page) --- */
-        .container, .portal-layout {
-            max-width: 1400px !important;
-            padding: 0 40px !important;
-        }
+        /* --- 1. LAYOUT --- */
+        .container, .portal-layout { max-width: 1400px !important; padding: 0 40px !important; }
 
-        /* --- 2. TIMETABLE GRID STYLES --- */
+        /* --- 2. TIMETABLE GRID --- */
         .timetable-scroll-wrapper {
-            margin-bottom: 30px;
-            background: white;
-            border-radius: 12px;
-            padding: 15px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
-            overflow-x: auto; 
+            margin-bottom: 30px; background: white; border-radius: 12px; padding: 15px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05); overflow-x: auto; 
         }
-
         .tt-grid {
             display: grid !important;
             grid-template-columns: 50px repeat(24, minmax(40px, 1fr)) !important; 
-            grid-auto-rows: minmax(55px, auto);
-            gap: 1px;
-            background: #e0e0e0;
-            border: 1px solid #e0e0e0;
-            min-width: 1000px;
+            grid-auto-rows: minmax(55px, auto); gap: 1px;
+            background: #e0e0e0; border: 1px solid #e0e0e0; min-width: 1000px;
         }
-
         .tt-head, .tt-head-corner {
             background: #5D9CEC; color: white; font-weight: 700; font-size: 11px;
             display: flex; align-items: center; justify-content: center; padding: 6px 0;
             text-shadow: 0 1px 2px rgba(0,0,0,0.1);
         }
         .tt-head { grid-column: span 2; border-left: 1px solid rgba(255,255,255,0.2); }
-
         .tt-day {
             background: #FDFD96; color: #333; font-weight: 700; font-size: 11px;
             display: flex; align-items: center; justify-content: center; text-transform: uppercase;
         }
-
         .tt-slot { background: white; }
-
         .tt-block {
             padding: 2px 4px; font-size: 9px; line-height: 1.25; color: #1d1d1f;
             display: flex; flex-direction: column; justify-content: center; align-items: center;
@@ -55,11 +40,10 @@
         }
         .tt-block strong { font-weight: 800; font-size: 10px; margin-bottom: 1px; display: block; }
         .red-text { color: #d32f2f; font-weight: 700; font-size: 9px; margin-top: 1px; }
-
         .lecture { background: #E3F2DA; border-left: 3px solid #8BC34A; } 
         .tutorial { background: #DAF0F2; border-left: 3px solid #00BCD4; }
 
-        /* --- 3. LIST TABLE STYLES --- */
+        /* --- 3. LIST TABLE --- */
         .list-header-row, .list-data-row {
             display: grid !important;
             grid-template-columns: 40px 90px 3fr 50px 60px 70px 50px 180px 50px !important;
@@ -71,48 +55,61 @@
         .list-data-row a { text-decoration: none; color: #007AFF; font-weight: 700; }
         .link-cell { color: #007AFF; text-decoration: underline; cursor: pointer; }
 
-        /* --- 4. MAC WINDOW POPUP --- */
+        /* --- 4. HIGH PERFORMANCE MAC WINDOW --- */
         .modal-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.4); 
-            backdrop-filter: blur(8px);
+            background: rgba(0, 0, 0, 0.3); /* Darker dim */
+            backdrop-filter: blur(5px);
             z-index: 2000;
-            display: none;
-            justify-content: center; align-items: center;
-            opacity: 0; transition: opacity 0.3s ease;
-            pointer-events: none;
+            
+            /* KEY FIX: Use Visibility + Opacity instead of Display:None */
+            visibility: hidden; 
+            opacity: 0;
+            transition: opacity 0.2s ease, visibility 0.2s ease;
+            
+            /* Flexbox to center the window */
+            display: flex; justify-content: center; align-items: center;
         }
 
-        .modal-overlay.open { display: flex; opacity: 1; pointer-events: auto; }
+        .modal-overlay.open {
+            visibility: visible;
+            opacity: 1;
+        }
 
         .mac-window {
             width: 650px; max-width: 90%; background: #fff;
-            border-radius: 12px; box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5);
+            border-radius: 12px; box-shadow: 0 40px 80px rgba(0, 0, 0, 0.4);
             overflow: hidden; border: 1px solid rgba(0,0,0,0.1);
-            transform: scale(0.9) translateY(20px); opacity: 0;
-            transition: all 0.4s cubic-bezier(0.19, 1, 0.22, 1);
+            
+            /* ANIMATION START STATE */
+            transform: scale(0.95) translateY(10px);
+            opacity: 0;
+            transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.2s ease;
+            
+            /* Performance Hints */
+            will-change: transform, opacity;
         }
 
-        .modal-overlay.open .mac-window { transform: scale(1) translateY(0); opacity: 1; }
+        .modal-overlay.open .mac-window {
+            /* ANIMATION END STATE */
+            transform: scale(1) translateY(0);
+            opacity: 1;
+        }
 
         .mac-title-bar {
             background: #efefef; height: 38px; display: flex; align-items: center;
             padding: 0 15px; border-bottom: 1px solid #dcdcdc; position: relative;
         }
-
         .traffic-lights { display: flex; gap: 8px; }
         .dot { width: 12px; height: 12px; border-radius: 50%; display: inline-block; }
         .dot.red { background: #ff5f56; border: 1px solid #e0443e; cursor: pointer; }
         .dot.yellow { background: #ffbd2e; border: 1px solid #dea123; }
         .dot.green { background: #27c93f; border: 1px solid #1aab29; }
-
         .window-title {
             position: absolute; left: 0; right: 0; text-align: center;
             font-weight: 600; font-size: 13px; color: #444; pointer-events: none;
         }
-
         .mac-body { padding: 30px 40px; }
-
         .btn-close-preview {
             display: block; width: 100%; margin-top: 25px; padding: 12px;
             background: #f5f5f7; color: #333; border: 1px solid #d1d1d6;
@@ -154,7 +151,6 @@
     </header>
 
     <main class="portal-layout container">
-        
         <aside class="portal-sidebar glass-card animate-enter delay-2">
             <h3>Academics</h3>
             <ul class="sidebar-menu">
@@ -187,7 +183,6 @@
                         <h2>My Timetable</h2>
                         <button class="btn-edit-profile" onclick="hideTimetable()">← Back</button>
                     </div>
-                    
                     <p style="font-size: 13px; color: #666; margin-bottom: 20px;">Mr. AB Test User (02AAA12345)</p>
 
                     <div class="timetable-scroll-wrapper styled-scroll">
@@ -225,8 +220,7 @@
                             <div class="tt-day">Fri</div><div class="tt-slot empty" style="grid-column: span 24;"></div>
                             <div class="tt-day">Sat</div><div class="tt-slot empty" style="grid-column: span 24;"></div>
 
-                            <div class="tt-day">Sun</div>
-                            <div class="tt-slot empty" style="grid-column: span 2;"></div>
+                            <div class="tt-day">Sun</div><div class="tt-slot empty" style="grid-column: span 2;"></div>
                             <div class="tt-block lecture" style="grid-column: span 4;"><strong>UAPZ3013(L)(3)</strong>Physical<span class="red-text">1-7</span></div>
                             <div class="tt-slot empty" style="grid-column: span 18;"></div>
                         </div>
@@ -291,7 +285,7 @@
         function showTimetable() { document.getElementById('view-selection').style.display='none'; document.getElementById('view-schedule').style.display='block'; }
         function hideTimetable() { document.getElementById('view-selection').style.display='block'; document.getElementById('view-schedule').style.display='none'; }
         
-        // MOCK DATA (All names sanitized)
+        // MOCK DATA
         const lecturerDB = {
             'UAPP3063': { name: 'Dr. Jane Doe', email: 'janedoe@utar.edu.my' },
             'UAPP3074': { name: 'Mr. John Smith', email: 'johnsmith@utar.edu.my' },
@@ -305,13 +299,16 @@
             document.getElementById('modal-lecturer-name-2').innerText=data.name;
             document.getElementById('modal-email').innerText=data.email;
             
-            // Add 'open' class to trigger animation and lock scroll
-            document.getElementById('lecturer-modal').classList.add('open');
-            document.body.style.overflow = 'hidden'; 
+            // OPEN ANIMATION
+            const modal = document.getElementById('lecturer-modal');
+            modal.classList.add('open');
+            document.body.style.overflow = 'hidden'; // Block background scroll
         }
+
         function closeModal() { 
-            document.getElementById('lecturer-modal').classList.remove('open');
-            document.body.style.overflow = 'auto'; 
+            const modal = document.getElementById('lecturer-modal');
+            modal.classList.remove('open');
+            document.body.style.overflow = 'auto'; // Re-enable scroll
         }
     </script>
 </body>
