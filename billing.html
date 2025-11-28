@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UTAR Portal | My Billing</title>
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <link rel="icon" href="assets/img/logo-placeholder.png">
+</head>
+<body>
+
+    <div class="background-mesh"></div>
+
+    <header class="glass-nav animate-enter delay-1">
+        <div class="nav-container">
+            <a href="home.html" class="nav-logo">
+                <img src="assets/img/logo-placeholder.png" alt="UTAR">
+                <span>Portal</span>
+            </a>
+            <nav class="nav-links">
+                <a href="home.html" class="nav-link">Home</a>
+                <a href="#" class="nav-link">Menu ▾</a>
+                <a href="#" class="nav-link">Portfolio ▾</a>
+            </nav>
+            <div class="nav-user">
+                <span class="user-name">Mr. Lee Kell</span>
+                <a href="index.html" class="btn-logout">Logout</a>
+            </div>
+        </div>
+    </header>
+
+    <main class="portal-layout container">
+        
+        <aside class="portal-sidebar glass-card animate-enter delay-2">
+            <h3>Finance</h3>
+            <ul class="sidebar-menu">
+                <li><a href="billing.html" class="active">My Billing</a></li>
+                <li><a href="#">Payment History</a></li>
+            </ul>
+        </aside>
+
+        <section class="portal-content animate-enter delay-3">
+            
+            <div class="glass-card content-padding">
+                <h2>My Billing</h2>
+                
+                <div class="info-box">
+                    <span class="icon">ℹ️</span>
+                    <p>Please select the current bill to pay using PB e-Online Banking service. Status: <strong>Valid</strong> for Sep/Oct 2025 Trimester.</p>
+                </div>
+
+                <div class="billing-table-container">
+                    <div class="billing-header-row">
+                        <div>Session</div>
+                        <div>Billing Type</div>
+                        <div>Ref No.</div>
+                        <div>Due Date</div>
+                        <div>Status</div>
+                        <div class="amount-col">Amount (RM)</div>
+                        <div>Action</div>
+                    </div>
+
+                    <div class="billing-data-row glass-card">
+                        <div class="data-cell">Is. 202510</div>
+                        <div class="data-cell main-info">
+                            Existing Student Bill
+                            <span class="sub-text">Full Payment</span>
+                        </div>
+                        <div class="data-cell">202510E028706</div>
+                        <div class="data-cell">30 Nov 2025</div>
+                        <div class="data-cell"><span class="status-badge success">Valid</span></div>
+                        <div class="data-cell amount-col">3,800.00</div>
+                        <div class="data-cell">
+                             <button class="btn-pay-now">
+                                <img src="https://www.pbebank.com/images/logo.png" alt="PBe" height="20">
+                                Pay Now
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="billing-footer">
+                    <p class="important-note">Note: Your payment will be updated in your "Payment History" in three (3) working days.</p>
+                    <h4>Guidelines for Payment via PBe Online Banking</h4>
+                    <ol class="guidelines-list">
+                        <li>Payment via PBe Online Banking is a service provided by Public Bank to their current and savings account holders.</li>
+                        <li>The default daily limit is RM10,000.00. You may need to increase this limit in your PBe profile settings.</li>
+                        <li>Ensure your browser pop-up blocker is disabled before proceeding.</li>
+                    </ol>
+                </div>
+
+            </div>
+
+        </section>
+    </main>
+    <script src="assets/js/main.js"></script>
+</body>
+</html>
