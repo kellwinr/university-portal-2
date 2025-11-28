@@ -35,19 +35,24 @@
         </div>
 
 <div class="recaptcha-mock animate-enter delay-4" id="recaptcha-container">
-    <div class="checkbox-box" id="recaptcha-box">
-        <input type="checkbox" tabindex="-1" style="pointer-events: none;"> 
+    
+    <div class="recaptcha-content-left">
+        <div class="checkbox-box" id="recaptcha-box"></div>
+        <div class="spinner" id="recaptcha-spinner"></div>
+        <div class="checkmark" id="recaptcha-check">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                <path d="M20 6L9 17L4 12" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+        </div>
+        <span id="recaptcha-text">I'm not a robot</span>
     </div>
-    
-    <div class="spinner" id="recaptcha-spinner"></div>
-    
-    <div class="checkmark" id="recaptcha-check">✓</div>
-    
-    <span id="recaptcha-text">I'm not a robot</span>
-    
+
     <div class="recaptcha-logo">
-        <img src="https://www.gstatic.com/recaptcha/api2/logo_48.png" alt="" style="width: 24px; opacity: 0.5;">
+        <img src="https://www.gstatic.com/recaptcha/api2/logo_48.png" alt="" style="width: 28px; opacity: 0.6;">
+        <div class="terms-text">reCAPTCHA</div>
+        <div class="terms-links">Privacy - Terms</div>
     </div>
+
 </div>
 
         <button type="submit" class="btn-primary animate-enter delay-5">Sign In</button>
