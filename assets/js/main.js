@@ -5,61 +5,87 @@ document.addEventListener('DOMContentLoaded', () => {
     const checkboxBox = document.getElementById('recaptcha-box');
     const spinner = document.getElementById('recaptcha-spinner');
     const checkmark = document.getElementById('recaptcha-check');
-    const recaptchaText = document.getElementById('recaptcha-text');
+    
+    // Track state
     let isHuman = false;
+    let isLoading = false;
 
-    recaptchaContainer.addEventListener('click', () => {
-        if (isHuman) return; // Already checked
+    if (recaptchaContainer) {
+        recaptchaContainer.addEventListener('click', () => {
+            // Prevent clicking if already done OR if currently loading
+            if (isHuman || isLoading) return; 
 
-        // Start Loading
-        recaptchaContainer.classList.add('loading');
-        checkboxBox.style.display = 'none';
-        spinner.style.display = 'block';
+            // Start Loading
+            isLoading = true;
+            recaptchaContainer.classList.add('loading');
+            if(checkboxBox) checkboxBox.style.display = 'none';
+            if(spinner) spinner.style.display = 'block';
 
-        // Simulate Network Delay (1.5 seconds)
-        setTimeout(() => {
-            spinner.style.display = 'none';
-            checkmark.style.display = 'block';
-            recaptchaContainer.classList.remove('loading');
-            recaptchaContainer.classList.add('success');
-            isHuman = true;
-        }, 1500);
-    });
+            // Simulate Network Delay (1.5 seconds)
+            setTimeout(() => {
+                if(spinner) spinner.style.display = 'none';
+                if(checkmark) checkmark.style.display = 'block';
+                
+                recaptchaContainer.classList.remove('loading');
+                recaptchaContainer.classList.add('success');
+                
+                isHuman = true;
+                isLoading = false;
+            }, 1500);
+        });
+    }
 
     // --- 2. Login Form Handling ---
     const loginForm = document.getElementById('loginForm');
-    const submitBtn = loginForm.querySelector('.btn-primary');
+    
+    if (loginForm) {
+        const submitBtn = loginForm.querySelector('.btn-primary');
 
-    loginForm.addEventListener('submit', (e) => {
-        e.preventDefault();
+        loginForm.addEventListener('submit', (e) => {
+            e.preventDefault();
 
-        if (!isHuman) {
-            // Shake animation if they didn't click recaptcha
-            recaptchaContainer.style.animation = "shake 0.5s";
-            setTimeout(() => { recaptchaContainer.style.animation = "none"; }, 500);
-            return; 
+            // Validation: Check Recaptcha first
+            if (!isHuman) {
+                // Shake animation if they didn't click recaptcha
+                if (recaptchaContainer) {
+                    recaptchaContainer.style.animation = "shake 0.5s";
+                    setTimeout(() => { recaptchaContainer.style.animation = "none"; }, 500);
+                }
+                return; 
+            }
+
+            // Simulate Login Processing
+            const originalText = submitBtn.innerText;
+            submitBtn.innerText = 'Authenticating...';
+            submitBtn.style.opacity = '0.7';
+            submitBtn.style.cursor = 'wait';
+            submitBtn.disabled = true;
+
+            setTimeout(() => {
+                alert("Success! Welcome to the new UTAR Portal.");
+                
+                // Reset button
+                submitBtn.innerText = originalText;
+                submitBtn.style.opacity = '1';
+                submitBtn.style.cursor = 'pointer';
+                submitBtn.disabled = false;
+            }, 2000);
+        });
+    }
+
+    // --- 3. Background Parallax Effect (Visual Flair) ---
+    // This moves the background slightly when mouse moves
+    document.addEventListener('mousemove', (e) => {
+        const mesh = document.querySelector('.background-mesh');
+        if(mesh) {
+            const x = (window.innerWidth - e.pageX * 2) / 100;
+            const y = (window.innerHeight - e.pageY * 2) / 100;
+            mesh.style.transform = `translateX(${x}px) translateY(${y}px)`;
         }
-
-        // Simulate Login Processing
-        const originalText = submitBtn.innerText;
-        submitBtn.innerText = 'Authenticating...';
-        submitBtn.style.opacity = '0.7';
-        submitBtn.style.cursor = 'wait';
-        submitBtn.disabled = true;
-
-        setTimeout(() => {
-            alert("Success! Welcome to the new UTAR Portal.");
-            
-            // Reset button
-            submitBtn.innerText = originalText;
-            submitBtn.style.opacity = '1';
-            submitBtn.style.cursor = 'pointer';
-            submitBtn.disabled = false;
-        }, 2000);
     });
 });
 
-/* Add this Shake Keyframe to CSS via JS or in CSS file */
+/* Inject CSS for the Shake Animation dynamically */
 const styleSheet = document.createElement("style");
 styleSheet.innerText = `
 @keyframes shake {
