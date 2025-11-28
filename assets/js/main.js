@@ -169,3 +169,15 @@ styleSheet.innerText = `
   100% { transform: translateX(0); }
 }`;
 document.head.appendChild(styleSheet);
+
+function openLecturerModal(unit) {
+            // Update Text
+            document.getElementById('modal-unit-code').innerText = unit;
+            
+            // (Optional) If you have dynamic data, update names here
+            // document.getElementById('modal-lecturer-name').innerText = "New Name";
+            // document.getElementById('modal-lecturer-name-2').innerText = "New Name";
+
+            // Show Window
+            document.getElementById('lecturer-modal').style.display = 'flex';
+        }
