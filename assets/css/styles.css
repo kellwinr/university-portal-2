@@ -247,3 +247,127 @@ body {
     .links-section { border-left: none; border-top: 1px solid rgba(255,255,255,0.5); }
     .login-section, .links-section { padding: 40px 25px; }
 }
+
+/* =========================================
+   ANIMATION UPGRADE PACK
+   ========================================= */
+
+/* 1. Entrance Animations (Fade Up) */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Base class to hide elements before they animate */
+.animate-enter {
+    opacity: 0;
+    animation: fadeInUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+}
+
+/* Stagger delays so elements flow in one by one */
+.delay-1 { animation-delay: 0.1s; }
+.delay-2 { animation-delay: 0.2s; }
+.delay-3 { animation-delay: 0.3s; }
+.delay-4 { animation-delay: 0.4s; }
+.delay-5 { animation-delay: 0.5s; }
+
+/* 2. Floating Background Animation */
+@keyframes floatMesh {
+    0% { transform: translate(0, 0); }
+    50% { transform: translate(-20px, 20px); }
+    100% { transform: translate(0, 0); }
+}
+
+.background-mesh {
+    /* Overrides the JS parallax for a smoother, constant flow */
+    animation: floatMesh 20s ease-in-out infinite; 
+}
+
+/* 3. Glass Shimmer Effect on Sidebar Links */
+.quick-link {
+    position: relative;
+    overflow: hidden; /* Contains the shine */
+}
+
+.quick-link::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        120deg, 
+        transparent, 
+        rgba(255, 255, 255, 0.4), 
+        transparent
+    );
+    transition: all 0.6s;
+}
+
+.quick-link:hover::before {
+    left: 100%; /* The shine moves across the button */
+}
+
+.quick-link:hover {
+    transform: scale(1.02) translateY(-2px); /* Subtle zoom */
+}
+
+/* 4. Input Focus Micro-interaction */
+.input-group input:focus {
+    transform: scale(1.01);
+    background: #fff;
+}
+
+/* 5. Recaptcha Animation Logic */
+.recaptcha-mock {
+    transition: border-color 0.3s;
+    cursor: pointer;
+    position: relative;
+}
+
+.recaptcha-mock.loading {
+    border-color: #ccc;
+    pointer-events: none;
+}
+
+.recaptcha-mock.success {
+    border-color: #00A36C; /* Green border */
+}
+
+/* The Spinner */
+.spinner {
+    width: 20px;
+    height: 20px;
+    border: 2px solid #ddd;
+    border-top: 2px solid #007AFF;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    display: none;
+    margin-right: 10px;
+}
+
+@keyframes spin { 100% { transform: rotate(360deg); } }
+
+/* The Checkmark */
+.checkmark {
+    display: none;
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+    color: #00A36C;
+    font-weight: bold;
+    font-size: 18px;
+    animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes popIn {
+    0% { transform: scale(0); }
+    100% { transform: scale(1); }
+}
