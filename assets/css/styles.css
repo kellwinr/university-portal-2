@@ -31,17 +31,34 @@ body {
 a { text-decoration: none; color: var(--primary-blue); transition: all 0.2s; }
 ul { list-style: none; }
 
-/* --- Shared: Background & Glass --- */
 .background-mesh {
-    position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -99;
+    position: fixed; /* Fixed is faster than absolute for backgrounds */
+    top: -10%;       /* Oversize slightly to prevent white edges on bounce */
+    left: -10%;
+    width: 120%;
+    height: 120%;
+    z-index: -99;
     background: radial-gradient(circle at 10% 20%, rgb(239, 246, 255) 0%, rgb(219, 228, 255) 90%);
+    
+    /* PERFORMANCE FIXES */
+    will-change: transform; /* Tells browser to prep for movement */
+    backface-visibility: hidden; /* Hides jagged edges */
+    transform: translateZ(0); /* Hack to trigger Hardware Acceleration */
 }
+
+/* Update the pseudo-element too */
 .background-mesh::before {
-    content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
-    background: radial-gradient(circle, rgba(0,122,255,0.1) 0%, transparent 60%),
-                radial-gradient(circle at 80% 20%, rgba(214, 45, 45, 0.05) 0%, transparent 50%);
+    content: ''; 
+    position: absolute; 
+    top: 0; left: 0; 
+    width: 100%; height: 100%;
+    background: radial-gradient(circle, rgba(0,122,255,0.08) 0%, transparent 60%),
+                radial-gradient(circle at 80% 20%, rgba(52, 199, 89, 0.06) 0%, transparent 50%);
     filter: blur(80px);
-    transition: transform 0.1s; /* Smooth JS movement */
+    
+    /* Remove the CSS animation here if it conflicts with JS, 
+       or keep it simple. If it's still laggy, delete the animation line below */
+    /* animation: floatMesh 20s ease-in-out infinite; */ 
 }
 
 .glass-card {
