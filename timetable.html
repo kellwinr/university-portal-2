@@ -8,7 +8,13 @@
     <link rel="icon" href="assets/img/logo-placeholder.png">
 
     <style>
-        /* --- 1. TIMETABLE GRID STYLES --- */
+        /* --- 1. LAYOUT FIX (Widen the page) --- */
+        .container, .portal-layout {
+            max-width: 1400px !important;
+            padding: 0 40px !important;
+        }
+
+        /* --- 2. TIMETABLE GRID STYLES --- */
         .timetable-scroll-wrapper {
             margin-bottom: 30px;
             background: white;
@@ -53,7 +59,7 @@
         .lecture { background: #E3F2DA; border-left: 3px solid #8BC34A; } 
         .tutorial { background: #DAF0F2; border-left: 3px solid #00BCD4; }
 
-        /* --- 2. LIST TABLE STYLES --- */
+        /* --- 3. LIST TABLE STYLES --- */
         .list-header-row, .list-data-row {
             display: grid !important;
             grid-template-columns: 40px 90px 3fr 50px 60px 70px 50px 180px 50px !important;
@@ -65,23 +71,29 @@
         .list-data-row a { text-decoration: none; color: #007AFF; font-weight: 700; }
         .link-cell { color: #007AFF; text-decoration: underline; cursor: pointer; }
 
-        /* --- 3. MAC WINDOW POPUP STYLES (CRITICAL FIX) --- */
+        /* --- 4. MAC WINDOW POPUP --- */
         .modal-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.4); backdrop-filter: blur(5px);
+            background: rgba(0, 0, 0, 0.4); 
+            backdrop-filter: blur(8px);
             z-index: 2000;
-            display: none; /* HIDDEN BY DEFAULT */
+            display: none;
             justify-content: center; align-items: center;
+            opacity: 0; transition: opacity 0.3s ease;
+            pointer-events: none;
         }
+
+        .modal-overlay.open { display: flex; opacity: 1; pointer-events: auto; }
 
         .mac-window {
             width: 650px; max-width: 90%; background: #fff;
-            border-radius: 12px; box-shadow: 0 25px 60px rgba(0, 0, 0, 0.4);
-            overflow: hidden; animation: windowPop 0.3s cubic-bezier(0.19, 1, 0.22, 1);
-            border: 1px solid rgba(0,0,0,0.1);
+            border-radius: 12px; box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5);
+            overflow: hidden; border: 1px solid rgba(0,0,0,0.1);
+            transform: scale(0.9) translateY(20px); opacity: 0;
+            transition: all 0.4s cubic-bezier(0.19, 1, 0.22, 1);
         }
 
-        @keyframes windowPop { 0% { transform: scale(0.95); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
+        .modal-overlay.open .mac-window { transform: scale(1) translateY(0); opacity: 1; }
 
         .mac-title-bar {
             background: #efefef; height: 38px; display: flex; align-items: center;
@@ -135,13 +147,14 @@
                 </div>
             </nav>
             <div class="nav-user">
-                <span class="user-name">Mr./Dr./Mrs. AB Test User</span>
+                <span class="user-name">Mr. AB Test User</span>
                 <a href="index.html" class="btn-logout">Logout</a>
             </div>
         </div>
     </header>
 
     <main class="portal-layout container">
+        
         <aside class="portal-sidebar glass-card animate-enter delay-2">
             <h3>Academics</h3>
             <ul class="sidebar-menu">
@@ -175,7 +188,7 @@
                         <button class="btn-edit-profile" onclick="hideTimetable()">← Back</button>
                     </div>
                     
-                    <p style="font-size: 13px; color: #666; margin-bottom: 20px;">Mr./Dr./Mrs. Test User (02AAA12345)</p>
+                    <p style="font-size: 13px; color: #666; margin-bottom: 20px;">Mr. AB Test User (02AAA12345)</p>
 
                     <div class="timetable-scroll-wrapper styled-scroll">
                         <div class="tt-grid">
@@ -211,7 +224,9 @@
                             <div class="tt-day">Thu</div><div class="tt-slot empty" style="grid-column: span 24;"></div>
                             <div class="tt-day">Fri</div><div class="tt-slot empty" style="grid-column: span 24;"></div>
                             <div class="tt-day">Sat</div><div class="tt-slot empty" style="grid-column: span 24;"></div>
-                            <div class="tt-day">Sun</div><div class="tt-slot empty" style="grid-column: span 2;"></div>
+
+                            <div class="tt-day">Sun</div>
+                            <div class="tt-slot empty" style="grid-column: span 2;"></div>
                             <div class="tt-block lecture" style="grid-column: span 4;"><strong>UAPZ3013(L)(3)</strong>Physical<span class="red-text">1-7</span></div>
                             <div class="tt-slot empty" style="grid-column: span 18;"></div>
                         </div>
@@ -246,13 +261,13 @@
                 </h2>
                 <div class="lecturer-header">
                     <div class="lecturer-info" style="flex: 1;">
-                        <div class="data-row-modal"><span class="label">Name :</span> <span class="value" id="modal-lecturer-name">Dr.N</span></div>
+                        <div class="data-row-modal"><span class="label">Name :</span> <span class="value" id="modal-lecturer-name">Dr. Jane Doe</span></div>
                         <div class="data-row-modal"><span class="label">Faculty :</span> <span class="value">Faculty of Arts and Social Science</span></div>
                         <div class="data-row-modal"><span class="label">Department :</span> <span class="value">Department of Psychology and Counselling</span></div>
-                        <div class="data-row-modal"><span class="label">Email Address :</span> <span class="value email-link" id="modal-email">n123456@utar.edu.my</span></div>
-                        <div class="data-row-modal"><span class="label">Contact Number :</span> <span class="value">06-12345678 Ext. 1234</span></div>
+                        <div class="data-row-modal"><span class="label">Email Address :</span> <span class="value email-link" id="modal-email">janedoe@utar.edu.my</span></div>
+                        <div class="data-row-modal"><span class="label">Contact Number :</span> <span class="value">05-4688888 Ext. 4240</span></div>
                         <br>
-                        <div class="data-row-modal"><span class="label">Room Number :</span> <span class="value">PF-000</span></div>
+                        <div class="data-row-modal"><span class="label">Room Number :</span> <span class="value">PF-074</span></div>
                     </div>
                     <div class="lecturer-photo" style="margin-left: 20px;">
                         <div style="width: 110px; height: 130px; background: #eee; border: 1px solid #ccc; display: flex; align-items: center; justify-content: center; overflow: hidden;">
@@ -264,7 +279,7 @@
                     <div style="display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; font-weight: 700; font-size: 13px; margin-bottom: 10px;">
                         <div>Day(s) of Week</div><div>Date & Time</div><div>Category</div><div>Remark</div>
                     </div>
-                    <p style="font-size: 13px; color: #333;">-- Oops! <span id="modal-lecturer-name-2">Dr.N</span> does not have available time slot. --</p>
+                    <p style="font-size: 13px; color: #333;">-- Oops! <span id="modal-lecturer-name-2">Dr. Jane Doe</span> does not have available time slot. --</p>
                 </div>
                 <button class="btn-close-preview" onclick="closeModal()">Close Preview</button>
             </div>
@@ -276,10 +291,11 @@
         function showTimetable() { document.getElementById('view-selection').style.display='none'; document.getElementById('view-schedule').style.display='block'; }
         function hideTimetable() { document.getElementById('view-selection').style.display='block'; document.getElementById('view-schedule').style.display='none'; }
         
+        // MOCK DATA (All names sanitized)
         const lecturerDB = {
-            'UAPP3063': { name: 'Dr. N ', email: 'N12345@utar.edu.my' },
-            'UAPP3074': { name: 'Mr. L', email: 'l12345@utar.edu.my' },
-            'UAPZ3013': { name: 'Prof. Dr. T', email: 't12345@utar.edu.my' }
+            'UAPP3063': { name: 'Dr. Jane Doe', email: 'janedoe@utar.edu.my' },
+            'UAPP3074': { name: 'Mr. John Smith', email: 'johnsmith@utar.edu.my' },
+            'UAPZ3013': { name: 'Prof. Alan Turing', email: 'alant@utar.edu.my' }
         };
 
         function openLecturerModal(unit) { 
@@ -288,9 +304,15 @@
             document.getElementById('modal-lecturer-name').innerText=data.name;
             document.getElementById('modal-lecturer-name-2').innerText=data.name;
             document.getElementById('modal-email').innerText=data.email;
-            document.getElementById('lecturer-modal').style.display='flex'; 
+            
+            // Add 'open' class to trigger animation and lock scroll
+            document.getElementById('lecturer-modal').classList.add('open');
+            document.body.style.overflow = 'hidden'; 
         }
-        function closeModal() { document.getElementById('lecturer-modal').style.display='none'; }
+        function closeModal() { 
+            document.getElementById('lecturer-modal').classList.remove('open');
+            document.body.style.overflow = 'auto'; 
+        }
     </script>
 </body>
 </html>
