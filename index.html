@@ -14,44 +14,43 @@
     <main class="main-container">
         <div class="glass-card">
             
-            <section class="login-section">
-                <div class="brand-header">
-                    <img src="assets/img/logo-placeholder.png" alt="UTAR Logo" class="logo">
-    
-                <div class="brand-text">
-                    <h1>UTAR Portal</h1>
-                    <p>Secure Access System</p> 
-                </div>
-            </div>
+<section class="login-section">
+    <div class="brand-header animate-enter delay-1">
+        <img src="assets/img/logo-placeholder.png" alt="UTAR Logo" class="logo">
+        <div class="brand-text">
+            <h1>UTAR Portal</h1>
+            <p>Secure Access System</p>
+        </div>
+    </div>
 
-                <form id="loginForm">
-                    <div class="input-group">
-                        <label for="username">User ID</label>
-                        <input type="text" id="username" placeholder="Enter your Student/Staff ID" required>
-                    </div>
+    <form id="loginForm">
+        <div class="input-group animate-enter delay-2">
+            <label for="username">User ID</label>
+            <input type="text" id="username" placeholder="Enter your Student/Staff ID" required>
+        </div>
 
-                    <div class="input-group">
-                        <label for="password">Password</label>
-                        <input type="password" id="password" placeholder="Enter your password" required>
-                    </div>
+        <div class="input-group animate-enter delay-3">
+            <label for="password">Password</label>
+            <input type="password" id="password" placeholder="Enter your password" required>
+        </div>
 
-                    <div class="recaptcha-mock">
-                        <div class="checkbox-box">
-                            <input type="checkbox" id="human-check">
-                        </div>
-                        <span>I'm not a robot</span>
-                        <div class="recaptcha-logo"></div>
-                    </div>
+        <div class="recaptcha-mock animate-enter delay-4" id="recaptcha-container">
+            <div class="checkbox-box" id="recaptcha-box"></div>
+            <div class="spinner" id="recaptcha-spinner"></div>
+            <div class="checkmark" id="recaptcha-check">✓</div>
+            <span id="recaptcha-text">I'm not a robot</span>
+            <div class="recaptcha-logo"></div>
+        </div>
 
-                    <button type="submit" class="btn-primary">Sign In</button>
-                    
-                    <div class="help-text">
-                        <a href="#">Forgot Password?</a>
-                        <span class="separator">•</span>
-                        <a href="mailto:info@utar.edu.my">Need Help?</a>
-                    </div>
-                </form>
-            </section>
+        <button type="submit" class="btn-primary animate-enter delay-5">Sign In</button>
+        
+        <div class="help-text animate-enter delay-5">
+            <a href="#">Forgot Password?</a>
+            <span class="separator">•</span>
+            <a href="mailto:info@utar.edu.my">Need Help?</a>
+        </div>
+    </form>
+</section>
 
             <aside class="links-section">
                 <h2>Quick Access</h2>
