@@ -34,13 +34,21 @@
             <input type="password" id="password" placeholder="Enter your password" required>
         </div>
 
-        <div class="recaptcha-mock animate-enter delay-4" id="recaptcha-container">
-            <div class="checkbox-box" id="recaptcha-box"></div>
-            <div class="spinner" id="recaptcha-spinner"></div>
-            <div class="checkmark" id="recaptcha-check">✓</div>
-            <span id="recaptcha-text">I'm not a robot</span>
-            <div class="recaptcha-logo"></div>
-        </div>
+<div class="recaptcha-mock animate-enter delay-4" id="recaptcha-container">
+    <div class="checkbox-box" id="recaptcha-box">
+        <input type="checkbox" tabindex="-1" style="pointer-events: none;"> 
+    </div>
+    
+    <div class="spinner" id="recaptcha-spinner"></div>
+    
+    <div class="checkmark" id="recaptcha-check">✓</div>
+    
+    <span id="recaptcha-text">I'm not a robot</span>
+    
+    <div class="recaptcha-logo">
+        <img src="https://www.gstatic.com/recaptcha/api2/logo_48.png" alt="" style="width: 24px; opacity: 0.5;">
+    </div>
+</div>
 
         <button type="submit" class="btn-primary animate-enter delay-5">Sign In</button>
         
