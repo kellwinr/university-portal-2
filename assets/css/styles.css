@@ -1,6 +1,8 @@
-/* --- Variables & Reset --- */
+/* =========================================
+   1. VARIABLES & RESET
+   ========================================= */
 :root {
-    --primary-blue: #007AFF; /* Apple Blue */
+    --primary-blue: #007AFF;
     --utar-blue: #0f1c3f;
     --utar-red: #d62d2d;
     --glass-bg: rgba(255, 255, 255, 0.75);
@@ -28,7 +30,17 @@ body {
     background-color: #f5f5f7;
 }
 
-/* --- Animated Background --- */
+/* =========================================
+   2. BACKGROUND & LAYOUT
+   ========================================= */
+
+/* Floating Animation for Background */
+@keyframes floatMesh {
+    0% { transform: translate(0, 0); }
+    50% { transform: translate(-20px, 20px); }
+    100% { transform: translate(0, 0); }
+}
+
 .background-mesh {
     position: absolute;
     top: 0;
@@ -37,6 +49,7 @@ body {
     height: 100%;
     z-index: -1;
     background: radial-gradient(circle at 10% 20%, rgb(239, 246, 255) 0%, rgb(219, 228, 255) 90%);
+    animation: floatMesh 20s ease-in-out infinite; 
 }
 
 .background-mesh::before {
@@ -51,7 +64,6 @@ body {
     filter: blur(80px);
 }
 
-/* --- Main Glass Card --- */
 .main-container {
     width: 100%;
     padding: 20px;
@@ -73,7 +85,9 @@ body {
     flex-direction: row;
 }
 
-/* --- Left Side: Login --- */
+/* =========================================
+   3. LOGIN SECTION (LEFT)
+   ========================================= */
 .login-section {
     flex: 1.2;
     padding: 60px;
@@ -88,12 +102,13 @@ body {
     align-items: center;
     gap: 15px;
 }
+
 .logo {
-    height: 65px;             /* Fixed height to match the text next to it */
-    width: auto;              /* Allow width to expand naturally */
-    border-radius: 8px;       /* Soften the sharp corners of the rectangle */
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); /* Add depth */
-    object-fit: contain;      /* Prevents stretching */
+    height: 65px;             
+    width: auto;              
+    border-radius: 8px;       
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); 
+    object-fit: contain;      
 }
 
 .brand-text h1 {
@@ -133,6 +148,8 @@ body {
     outline: none;
     border-color: var(--primary-blue);
     box-shadow: 0 0 0 4px rgba(0, 122, 255, 0.1);
+    transform: scale(1.01);
+    background: #fff;
 }
 
 .btn-primary {
@@ -174,27 +191,37 @@ body {
     color: #d2d2d7;
 }
 
-/* --- Final Recaptcha Styling --- */
+/* =========================================
+   4. RECAPTCHA (CORRECTED VERSION)
+   ========================================= */
 .recaptcha-mock {
     display: flex;
     align-items: center;
-    justify-content: space-between; /* Pushes Left and Right sides apart */
-    background: #f9f9f9;
+    justify-content: space-between; 
+    background: #fff;
     border: 1px solid #d3d3d3;
     padding: 0 12px;
     border-radius: 4px;
-    width: 280px;  /* Standard width */
-    height: 74px;  /* Standard height */
+    width: 280px; 
+    height: 74px; 
     margin-bottom: 20px;
     box-shadow: 0 1px 2px rgba(0,0,0,0.05);
     user-select: none;
     cursor: pointer;
     transition: all 0.3s ease;
-    background: #fff;
 }
 
 .recaptcha-mock:hover {
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.recaptcha-mock.loading {
+    border-color: #ccc;
+    pointer-events: none;
+}
+
+.recaptcha-mock.success {
+    border-color: #00A36C; 
 }
 
 /* Left Wrapper: Checkbox + Text */
@@ -228,7 +255,7 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    margin-left: auto; /* Forcefully pushes this block to the right */
+    margin-left: auto; 
 }
 
 .terms-text {
@@ -242,22 +269,24 @@ body {
     color: #999;
 }
 
-/* --- Animations --- */
+/* Spinner & Checkmark Animations */
 .spinner {
     width: 24px;
     height: 24px;
     border: 3px solid #e0e0e0;
-    border-top: 3px solid #4A90E2; /* Blue spinner */
+    border-top: 3px solid #4A90E2; 
     border-radius: 50%;
     animation: spin 1s linear infinite;
-    display: none; /* Hidden by default */
+    display: none; 
+    margin-right: 12px;
 }
 
 .checkmark {
     width: 26px;
     height: 26px;
-    color: #00A36C; /* Green Tick */
-    display: none; /* Hidden by default */
+    color: #00A36C; 
+    display: none; 
+    margin-right: 12px;
     animation: popCheck 0.4s cubic-bezier(0.65, 0, 0.45, 1);
 }
 
@@ -268,7 +297,9 @@ body {
     100% { transform: scale(1); } 
 }
 
-/* --- Right Side: Sidebar --- */
+/* =========================================
+   5. SIDEBAR (RIGHT)
+   ========================================= */
 .links-section {
     flex: 0.8;
     background: rgba(255, 255, 255, 0.5);
@@ -301,78 +332,8 @@ body {
     font-size: 14px;
     font-weight: 500;
     transition: all 0.2s;
-}
-
-.quick-link:hover {
-    background: white;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-}
-
-.quick-link .icon { margin-right: 12px; font-size: 18px; }
-.quick-link.warning .icon { filter: grayscale(100%) sepia(100%) saturate(1000%) hue-rotate(-50deg); } /* Red tint */
-
-.footer-legal {
-    margin-top: auto;
-    font-size: 11px;
-    color: var(--text-secondary);
-    line-height: 1.5;
-    padding-top: 40px;
-}
-
-/* --- Mobile Responsiveness --- */
-@media (max-width: 850px) {
-    body { height: auto; overflow-y: auto; }
-    .glass-card { flex-direction: column; margin: 20px 0; }
-    .links-section { border-left: none; border-top: 1px solid rgba(255,255,255,0.5); }
-    .login-section, .links-section { padding: 40px 25px; }
-}
-
-/* =========================================
-   ANIMATION UPGRADE PACK
-   ========================================= */
-
-/* 1. Entrance Animations (Fade Up) */
-@keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-/* Base class to hide elements before they animate */
-.animate-enter {
-    opacity: 0;
-    animation: fadeInUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
-}
-
-/* Stagger delays so elements flow in one by one */
-.delay-1 { animation-delay: 0.1s; }
-.delay-2 { animation-delay: 0.2s; }
-.delay-3 { animation-delay: 0.3s; }
-.delay-4 { animation-delay: 0.4s; }
-.delay-5 { animation-delay: 0.5s; }
-
-/* 2. Floating Background Animation */
-@keyframes floatMesh {
-    0% { transform: translate(0, 0); }
-    50% { transform: translate(-20px, 20px); }
-    100% { transform: translate(0, 0); }
-}
-
-.background-mesh {
-    /* Overrides the JS parallax for a smoother, constant flow */
-    animation: floatMesh 20s ease-in-out infinite; 
-}
-
-/* 3. Glass Shimmer Effect on Sidebar Links */
-.quick-link {
     position: relative;
-    overflow: hidden; /* Contains the shine */
+    overflow: hidden; 
 }
 
 .quick-link::before {
@@ -392,62 +353,57 @@ body {
 }
 
 .quick-link:hover::before {
-    left: 100%; /* The shine moves across the button */
+    left: 100%;
 }
 
 .quick-link:hover {
-    transform: scale(1.02) translateY(-2px); /* Subtle zoom */
+    background: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
 }
 
-/* 4. Input Focus Micro-interaction */
-.input-group input:focus {
-    transform: scale(1.01);
-    background: #fff;
+.quick-link .icon { margin-right: 12px; font-size: 18px; }
+.quick-link.warning .icon { filter: grayscale(100%) sepia(100%) saturate(1000%) hue-rotate(-50deg); }
+
+.footer-legal {
+    margin-top: auto;
+    font-size: 11px;
+    color: var(--text-secondary);
+    line-height: 1.5;
+    padding-top: 40px;
 }
 
-/* 5. Recaptcha Animation Logic */
-.recaptcha-mock {
-    transition: border-color 0.3s;
-    cursor: pointer;
-    position: relative;
+/* =========================================
+   6. RESPONSIVENESS
+   ========================================= */
+@media (max-width: 850px) {
+    body { height: auto; overflow-y: auto; }
+    .glass-card { flex-direction: column; margin: 20px 0; }
+    .links-section { border-left: none; border-top: 1px solid rgba(255,255,255,0.5); }
+    .login-section, .links-section { padding: 40px 25px; }
 }
 
-.recaptcha-mock.loading {
-    border-color: #ccc;
-    pointer-events: none;
+/* =========================================
+   7. ENTRANCE ANIMATIONS
+   ========================================= */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
-.recaptcha-mock.success {
-    border-color: #00A36C; /* Green border */
+.animate-enter {
+    opacity: 0;
+    animation: fadeInUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
 }
 
-/* The Spinner */
-.spinner {
-    width: 20px;
-    height: 20px;
-    border: 2px solid #ddd;
-    border-top: 2px solid #007AFF;
-    border-radius: 50%;
-    animation: spin 1s linear infinite;
-    display: none;
-    margin-right: 10px;
-}
-
-@keyframes spin { 100% { transform: rotate(360deg); } }
-
-/* The Checkmark */
-.checkmark {
-    display: none;
-    width: 20px;
-    height: 20px;
-    margin-right: 10px;
-    color: #00A36C;
-    font-weight: bold;
-    font-size: 18px;
-    animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-}
-
-@keyframes popIn {
-    0% { transform: scale(0); }
-    100% { transform: scale(1); }
-}
+.delay-1 { animation-delay: 0.1s; }
+.delay-2 { animation-delay: 0.2s; }
+.delay-3 { animation-delay: 0.3s; }
+.delay-4 { animation-delay: 0.4s; }
+.delay-5 { animation-delay: 0.5s; }
