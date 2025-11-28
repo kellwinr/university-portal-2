@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UTAR Portal | Dashboard</title>
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <link rel="icon" href="assets/img/logo-placeholder.png">
+</head>
+<body>
+
+    <div class="background-mesh"></div>
+
+    <header class="glass-nav animate-enter delay-1">
+        <div class="nav-container">
+            <a href="home.html" class="nav-logo">
+                <img src="assets/img/logo-placeholder.png" alt="UTAR">
+                <span>Portal</span>
+            </a>
+
+            <nav class="nav-links">
+                <a href="#" class="nav-link">Student Feedback</a>
+                <a href="home.html" class="nav-link active">Home</a>
+                
+                <div class="nav-dropdown">
+                    <a href="#" class="nav-link dropdown-trigger">Menu ▾</a>
+                    <div class="dropdown-menu glass-card">
+                        <a href="#">Academic Calendar</a>
+                        <a href="#">Programme Structure</a>
+                        <a href="#">Timetable</a>
+                    </div>
+                </div>
+
+                 <div class="nav-dropdown">
+                    <a href="#" class="nav-link dropdown-trigger">Portfolio ▾</a>
+                    <div class="dropdown-menu glass-card">
+                        <a href="#">Profile</a>
+                        <a href="#">My Blogger</a>
+                        <a href="#">Alumni Relations</a>
+                    </div>
+                </div>
+                
+                <a href="#" class="nav-link">My Email</a>
+            </nav>
+
+            <div class="nav-user">
+                <span class="user-name">Mr. Lee Kell</span>
+                <a href="index.html" class="btn-logout">Logout</a>
+            </div>
+        </div>
+    </header>
+
+    <main class="dashboard-container">
+        
+        <section class="welcome-banner glass-card animate-enter delay-2">
+            <div class="banner-text">
+                <h1>Welcome back, Kell! 👋</h1>
+                <p>Friday, November 28, 2025 | ID: 02012345</p>
+            </div>
+        </section>
+
+        <div class="dashboard-grid">
+
+            <div class="grid-column animate-enter delay-3">
+                <div class="dashboard-card glass-card">
+                    <div class="card-header">
+                        <span class="icon">✨</span> <h3>Highlights</h3>
+                    </div>
+                    <ul class="card-list">
+                        <li><a href="#">Academic Advisor</a></li>
+                        <li><a href="#">Registration for Vehicle Sticker</a></li>
+                        <li><a href="#">Student Feedback</a></li>
+                    </ul>
+                </div>
+
+                 <div class="dashboard-card glass-card alert-card">
+                    <div class="card-header">
+                        <span class="icon">💳</span> <h3>Billing Status</h3>
+                    </div>
+                    <div class="billing-quick-view">
+                        <span class="amount">RM 3,800.00</span>
+                        <span class="status-badge warning">Due Soon</span>
+                    </div>
+                    <a href="billing.html" class="btn-card-action">View & Pay Bills →</a>
+                </div>
+            </div>
+
+            <div class="grid-column animate-enter delay-4">
+                 <div class="dashboard-card glass-card">
+                    <div class="card-header">
+                        <span class="icon">📚</span> <h3>Course & Timetable</h3>
+                    </div>
+                    <ul class="card-list">
+                        <li><a href="#">Application for Hybrid Mode</a></li>
+                        <li><a href="#">Academic Calendar</a></li>
+                        <li><a href="#">My Timetable</a></li>
+                        <li><a href="#">Course Exemption</a></li>
+                    </ul>
+                </div>
+
+                <div class="dashboard-card glass-card">
+                    <div class="card-header">
+                        <span class="icon">📝</span> <h3>Examination</h3>
+                    </div>
+                    <ul class="card-list">
+                        <li><a href="#">Examination Result <span class="badge-new">NEW</span></a></li>
+                        <li><a href="#">Examination Posters</a></li>
+                        <li><a href="#">Past Year Papers</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="grid-column animate-enter delay-5">
+                <div class="dashboard-card glass-card announcement-card">
+                    <div class="card-header">
+                        <span class="icon">📢</span> <h3>Announcements</h3>
+                        <a href="#" class="view-all">View All</a>
+                    </div>
+                    <div class="announcement-list styled-scroll">
+                        <a href="#" class="announcement-item">
+                            <div class="meta">
+                                <span class="date">27/11/2025</span>
+                                <span class="badge-new">NEW</span>
+                            </div>
+                            <p class="title">Outcome of Appeal Review Result - Oct 2025</p>
+                            <span class="dept">By DEAS</span>
+                        </a>
+                        <a href="#" class="announcement-item">
+                            <div class="meta">
+                                <span class="date">26/11/2025</span>
+                                <span class="badge-new">NEW</span>
+                            </div>
+                            <p class="title">[Important] Online Course Verification Exercise</p>
+                            <span class="dept">By FICT</span>
+                        </a>
+                         <a href="#" class="announcement-item">
+                            <div class="meta">
+                                <span class="date">26/11/2025</span>
+                            </div>
+                            <p class="title">Helper Recruitment for Chinese Literature Week</p>
+                            <span class="dept">By FCS</span>
+                        </a>
+                         <a href="#" class="announcement-item read">
+                            <div class="meta">
+                                <span class="date">20/11/2025</span>
+                            </div>
+                            <p class="title">Library Opening Hours during Exam Week</p>
+                            <span class="dept">By LIB</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+        </div> </main>
+
+    <script src="assets/js/main.js"></script>
+</body>
+</html>
