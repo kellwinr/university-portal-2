@@ -55,44 +55,56 @@
         .list-data-row a { text-decoration: none; color: #007AFF; font-weight: 700; }
         .link-cell { color: #007AFF; text-decoration: underline; cursor: pointer; }
 
-        /* --- 4. ANIMATED POPUP STYLES (FIXED) --- */
+        /* --- 4. SUPER SMOOTH MAC WINDOW ANIMATION --- */
+        
+        /* The Dark Background Overlay */
         .modal-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.3); 
-            backdrop-filter: blur(5px);
-            z-index: 2000;
+            background: rgba(0, 0, 0, 0.35); 
+            backdrop-filter: blur(6px);
+            z-index: 9999; /* Always on top */
             
-            /* FLEXBOX CENTER */
             display: flex; justify-content: center; align-items: center;
 
-            /* HIDING MECHANISM (Allows Animation) */
+            /* Start Hidden */
             visibility: hidden;
             opacity: 0;
-            transition: all 0.3s ease-in-out;
+            pointer-events: none;
+            
+            /* Smooth Fade Transition */
+            transition: opacity 0.3s ease, visibility 0.3s ease;
         }
 
-        /* STATE: OPEN */
+        /* When Open */
         .modal-overlay.open {
             visibility: visible;
             opacity: 1;
+            pointer-events: auto; /* Block clicks behind */
         }
 
+        /* The Window Itself */
         .mac-window {
             width: 650px; max-width: 90%; background: #fff;
-            border-radius: 12px; box-shadow: 0 40px 80px rgba(0, 0, 0, 0.4);
-            overflow: hidden; border: 1px solid rgba(0,0,0,0.1);
+            border-radius: 12px; 
+            box-shadow: 0 40px 100px rgba(0, 0, 0, 0.5);
+            overflow: hidden; 
+            border: 1px solid rgba(0,0,0,0.1);
             
-            /* POP-IN ANIMATION */
+            /* Start: Small and Invisible */
             transform: scale(0.9);
             opacity: 0;
-            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Bouncy effect */
+            
+            /* The "Bouncy" Pop Effect */
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
+        /* End: Full Size and Visible */
         .modal-overlay.open .mac-window {
             transform: scale(1);
             opacity: 1;
         }
 
+        /* Window Contents */
         .mac-title-bar {
             background: #efefef; height: 38px; display: flex; align-items: center;
             padding: 0 15px; border-bottom: 1px solid #dcdcdc; position: relative;
@@ -296,14 +308,16 @@
             document.getElementById('modal-lecturer-name-2').innerText=data.name;
             document.getElementById('modal-email').innerText=data.email;
             
-            // Add 'open' class for animation
-            document.getElementById('lecturer-modal').classList.add('open');
-            document.body.style.overflow = 'hidden'; // Lock Scroll
+            // OPEN ANIMATION
+            const modal = document.getElementById('lecturer-modal');
+            modal.classList.add('open');
+            document.body.style.overflow = 'hidden'; // Block background scroll
         }
 
         function closeModal() { 
-            document.getElementById('lecturer-modal').classList.remove('open');
-            document.body.style.overflow = 'auto'; // Unlock Scroll
+            const modal = document.getElementById('lecturer-modal');
+            modal.classList.remove('open');
+            document.body.style.overflow = 'auto'; // Re-enable scroll
         }
     </script>
 </body>
