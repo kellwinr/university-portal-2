@@ -121,17 +121,41 @@ document.addEventListener('DOMContentLoaded', () => {
         dropdowns.forEach(d => d.classList.remove('active'));
     });
 
+  // =========================================
+    // 4. HIGH-PERFORMANCE PARALLAX (LAG FIX)
     // =========================================
-    // 4. BACKGROUND PARALLAX EFFECT
-    // =========================================
+    let mouseX = 0, mouseY = 0;
+    let targetX = 0, targetY = 0;
+    const windowHalfX = window.innerWidth / 2;
+    const windowHalfY = window.innerHeight / 2;
+    
+    // 1. Just capture coordinates on mouse move (Cheap operation)
     document.addEventListener('mousemove', (e) => {
-        const mesh = document.querySelector('.background-mesh');
-        if(mesh) {
-            const x = (window.innerWidth - e.pageX * 2) / 100;
-            const y = (window.innerHeight - e.pageY * 2) / 100;
-            mesh.style.transform = `translateX(${x}px) translateY(${y}px)`;
-        }
+        mouseX = (e.clientX - windowHalfX);
+        mouseY = (e.clientY - windowHalfY);
     });
+
+    // 2. Animate in a separate loop (The "Game Loop" approach)
+    const mesh = document.querySelector('.background-mesh');
+    
+    function animateParallax() {
+        if (mesh) {
+            // Smoothly interpolate towards the target (Easing)
+            // 0.05 is the "smoothness" factor. Lower = smoother/slower.
+            targetX += (mouseX - targetX) * 0.05;
+            targetY += (mouseY - targetY) * 0.05;
+
+            // Apply transform
+            // Using translate3d forces the GPU to handle the rendering (Hardware Acceleration)
+            mesh.style.transform = `translate3d(${-targetX / 25}px, ${-targetY / 25}px, 0)`;
+        }
+        
+        // Loop this function at 60fps
+        requestAnimationFrame(animateParallax);
+    }
+
+    // Start the loop
+    animateParallax();
 });
 
 /* Inject CSS for the Shake Animation dynamically */
