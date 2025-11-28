@@ -174,19 +174,36 @@ body {
     color: #d2d2d7;
 }
 
-/* --- Mock Recaptcha --- */
+/* Recaptcha Animation Styles */
 .recaptcha-mock {
-    display: flex;
-    align-items: center;
-    background: #f9f9f9;
-    border: 1px solid #d3d3d3;
-    padding: 10px 15px;
-    border-radius: 4px;
-    width: fit-content;
-    margin-bottom: 10px;
+    cursor: pointer; /* Shows hand cursor so user knows it's clickable */
+    user-select: none;
 }
-.checkbox-box input { margin-right: 10px; width: 20px; height: 20px; }
-.recaptcha-mock span { font-size: 12px; color: #555; }
+
+.spinner {
+    width: 24px;
+    height: 24px;
+    border: 3px solid #d3d3d3;
+    border-top: 3px solid #007AFF;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    display: none; /* Hidden initially */
+    margin-right: 12px;
+}
+
+.checkmark {
+    width: 24px;
+    height: 24px;
+    color: #00A36C; /* Green */
+    font-size: 24px;
+    line-height: 24px;
+    display: none; /* Hidden initially */
+    margin-right: 12px;
+    animation: popIn 0.3s ease;
+}
+
+@keyframes spin { 100% { transform: rotate(360deg); } }
+@keyframes popIn { 0% { transform: scale(0); } 100% { transform: scale(1); } }
 
 /* --- Right Side: Sidebar --- */
 .links-section {
