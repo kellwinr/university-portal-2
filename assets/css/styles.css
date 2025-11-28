@@ -191,9 +191,44 @@ ul { list-style: none; }
 .card-list li a:hover { color: var(--primary-blue); padding-left: 5px; }
 
 /* Special Cards */
-.alert-card { border-color: rgba(255, 149, 0, 0.3); background: linear-gradient(to bottom right, rgba(255,255,255,0.8), rgba(255, 240, 230, 0.6)); }
-.btn-card-action { display: inline-block; padding: 10px 20px; background: var(--text-main); color: white; border-radius: 8px; font-weight: 600; }
-.badge-new { background: var(--utar-red); color: white; font-size: 9px; padding: 3px 6px; border-radius: 10px; font-weight: 700; }
+.alert-card {
+    background: linear-gradient(to bottom right, rgba(255,255,255,0.9), rgba(255, 245, 240, 0.8));
+    border-color: rgba(255, 149, 0, 0.3);
+}
+
+.billing-quick-view {
+    display: flex;
+    align-items: center;       /* Vertically center the text and badge */
+    justify-content: flex-start; /* Keep them to the left */
+    gap: 15px;                 /* <--- THIS FIXES THE COLLISION */
+    margin: 20px 0;
+}
+
+.billing-quick-view .amount {
+    font-size: 26px;
+    font-weight: 700;
+    letter-spacing: -0.5px;    /* Tighter, Apple-like number spacing */
+    color: var(--text-main);
+}
+
+.btn-card-action {
+    display: flex;
+    justify-content: center;   /* Center text inside button */
+    width: 100%;               /* Force full width */
+    padding: 12px 0;
+    background: var(--text-main);
+    color: white;
+    border-radius: 8px;
+    font-weight: 600;
+    transition: all 0.2s;
+    text-align: center;
+}
+
+.btn-card-action:hover {
+    background: var(--primary-blue);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
 
 /* Announcements */
 .announcement-card { padding: 0; }
