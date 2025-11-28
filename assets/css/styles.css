@@ -387,3 +387,80 @@ ul { list-style: none; }
     .amount-col { text-align: center; }
     .btn-pay-now { width: 100%; justify-content: center; }
 }
+/* =========================================
+   6. PROFILE PAGE STYLES
+   ========================================= */
+
+.profile-top-header {
+    display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;
+}
+.btn-edit-profile {
+    padding: 8px 16px; border: 1px solid var(--glass-border); background: white;
+    border-radius: 8px; font-size: 13px; font-weight: 600; cursor: pointer; color: var(--text-main);
+    transition: all 0.2s;
+}
+.btn-edit-profile:hover { background: var(--primary-blue); color: white; border-color: transparent; }
+
+/* Wrapper for Details + Photo */
+.profile-section-wrapper {
+    display: flex; gap: 40px;
+}
+
+.profile-data-grid { flex: 1; }
+
+.section-title {
+    font-size: 12px; text-transform: uppercase; letter-spacing: 1px; color: var(--text-secondary);
+    margin-bottom: 20px; font-weight: 700; border-bottom: 1px solid rgba(0,0,0,0.05); padding-bottom: 10px;
+}
+
+/* Key-Value Data Rows */
+.data-row {
+    display: grid; grid-template-columns: 140px 1fr;
+    margin-bottom: 15px; align-items: flex-start;
+}
+.data-row .label { font-size: 14px; color: var(--text-secondary); font-weight: 500; }
+.data-row .value { font-size: 15px; color: var(--text-main); font-weight: 600; line-height: 1.5; }
+.data-row .value.highlight { color: var(--primary-blue); font-family: monospace; font-size: 16px; letter-spacing: 0.5px; }
+
+/* Photo Frame */
+.profile-photo-container {
+    flex: 0 0 180px; display: flex; justify-content: center;
+}
+.photo-frame {
+    width: 150px; height: 190px;
+    background: white;
+    padding: 8px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    transform: rotate(2deg); /* Subtle playful rotation */
+    border-radius: 4px;
+}
+.photo-placeholder {
+    width: 100%; height: 100%; background: #f0f0f5;
+    display: flex; align-items: center; justify-content: center;
+    color: #ccc; font-weight: 600; font-size: 12px; text-transform: uppercase;
+    border: 1px dashed #d1d1d6;
+}
+
+/* Divider */
+.profile-divider { border: 0; height: 1px; background: rgba(0,0,0,0.05); margin: 30px 0; }
+
+/* Address Section */
+.address-grid-layout {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 40px;
+}
+.address-text {
+    font-size: 15px; line-height: 1.6; color: var(--text-main); margin-bottom: 15px;
+}
+.address-text.text-muted { color: var(--text-secondary); font-style: italic; }
+
+.contact-row { display: flex; gap: 10px; font-size: 14px; margin-bottom: 5px; }
+.contact-row .label { color: var(--text-secondary); width: 60px; }
+.contact-row .value { font-weight: 600; }
+
+/* Responsive Profile */
+@media (max-width: 850px) {
+    .profile-section-wrapper { flex-direction: column-reverse; } /* Photo on top on mobile */
+    .profile-photo-container { justify-content: flex-start; margin-bottom: 20px; }
+    .address-grid-layout { grid-template-columns: 1fr; gap: 30px; }
+    .data-row { grid-template-columns: 1fr; gap: 5px; } /* Stack Label/Value on mobile */
+    .data-row .label { font-size: 12px; }
