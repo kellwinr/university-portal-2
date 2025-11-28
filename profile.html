@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UTAR Portal | My Profile</title>
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <link rel="icon" href="assets/img/logo-placeholder.png">
+</head>
+<body>
+
+    <div class="background-mesh"></div>
+
+    <header class="glass-nav animate-enter delay-1">
+        <div class="nav-container">
+            <a href="home.html" class="nav-logo">
+                <img src="assets/img/logo-placeholder.png" alt="UTAR">
+                <span>Portal</span>
+            </a>
+            <nav class="nav-links">
+                <a href="home.html" class="nav-link">Home</a>
+                <a href="#" class="nav-link">Menu ▾</a>
+                <a href="#" class="nav-link active">Portfolio ▾</a>
+            </nav>
+            <div class="nav-user">
+                <span class="user-name">Mr. AB Test User</span>
+                <a href="index.html" class="btn-logout">Logout</a>
+            </div>
+        </div>
+    </header>
+
+    <main class="portal-layout container">
+        
+        <aside class="portal-sidebar glass-card animate-enter delay-2">
+            <h3>Profile Settings</h3>
+            <ul class="sidebar-menu">
+                <li><a href="profile.html" class="active">My Profile</a></li>
+                <li><a href="#">Change Password</a></li>
+                <li><a href="#">Bank Account Info</a></li>
+            </ul>
+        </aside>
+
+        <section class="portal-content animate-enter delay-3">
+            
+            <div class="glass-card content-padding">
+                
+                <div class="profile-top-header">
+                    <h2>My Profile</h2>
+                    <button class="btn-edit-profile">Edit Details</button>
+                </div>
+
+                <div class="profile-section-wrapper">
+                    
+                    <div class="profile-data-grid">
+                        <h3 class="section-title">Personal Details</h3>
+                        
+                        <div class="data-row">
+                            <span class="label">Name</span>
+                            <span class="value">AB TESTING (NAME)</span>
+                        </div>
+                        <div class="data-row">
+                            <span class="label">Race</span>
+                            <span class="value">NOT SPECIFIED</span>
+                        </div>
+                        <div class="data-row">
+                            <span class="label">Gender</span>
+                            <span class="value">MALE</span>
+                        </div>
+                        <div class="data-row">
+                            <span class="label">NRIC No.</span>
+                            <span class="value">330912-06-0003</span>
+                        </div>
+                        <div class="data-row">
+                            <span class="label">Student ID</span>
+                            <span class="value highlight">02AAA012345</span>
+                        </div>
+                        <div class="data-row">
+                            <span class="label">Faculty</span>
+                            <span class="value">FAS</span>
+                        </div>
+                        <div class="data-row">
+                            <span class="label">Course</span>
+                            <span class="value">BACHELOR OF SOCIAL SCIENCE (HONOURS) PSYCHOLOGY</span>
+                        </div>
+                        <div class="data-row">
+                            <span class="label">University Email</span>
+                            <span class="value email-link">ab_tester@utar.edu.my</span>
+                        </div>
+                    </div>
+
+                    <div class="profile-photo-container">
+                        <div class="photo-frame">
+                            <div class="photo-placeholder">
+                                <span>Photo ID</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <hr class="profile-divider">
+
+                <div class="address-grid-layout">
+                    
+                    <div class="address-block">
+                        <h3 class="section-title">Permanent Address</h3>
+                        <p class="address-text">
+                            1, Jalan Universiti,<br>
+                            Kampar Bandar Baru,<br>
+                            Kampar<br>
+                            31900, Perak
+                        </p>
+                        <div class="contact-row">
+                            <span class="label">Tel:</span> <span class="value">012-345 6789</span>
+                        </div>
+                        <div class="contact-row">
+                            <span class="label">Mobile:</span> <span class="value">012-345 6789</span>
+                        </div>
+                    </div>
+
+                    <div class="address-block">
+                        <h3 class="section-title">Mailing Address</h3>
+                        <p class="address-text text-muted">
+                            Same as Permanent Address
+                        </p>
+                        <div class="contact-row">
+                            <span class="label">Tel:</span> <span class="value">-</span>
+                        </div>
+                        <div class="contact-row">
+                            <span class="label">Mobile:</span> <span class="value">012-346 6789</span>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="info-box" style="margin-top: 40px; background: rgba(255, 149, 0, 0.05); border-color: rgba(255, 149, 0, 0.2);">
+                    <span class="icon" style="color: var(--utar-orange);">⚠️</span>
+                    <div class="note-content">
+                        <strong>Please Note:</strong>
+                        <p style="font-size: 13px; margin-top: 5px;">
+                            Amendments to your personal details, please contact <strong>Department of Admissions and Credit Evaluation</strong>.<br>
+                            Amendments to your contact numbers or addresses, please contact your respective <strong>Faculty General Office</strong>.
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+    <script src="assets/js/main.js"></script>
+</body>
+</html>
