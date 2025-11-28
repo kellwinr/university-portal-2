@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UTAR WBLE | Login</title>
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <link rel="icon" href="assets/img/logo-placeholder.png">
+</head>
+<body>
+
+    <div class="background-mesh"></div>
+
+    <main class="main-container">
+        <div class="glass-card login-layout animate-enter delay-1">
+            
+            <div class="login-section" style="background: rgba(255,255,255,0.4);">
+                <div class="brand-header">
+                    <img src="assets/img/logo-placeholder.png" alt="WBLE Logo" class="logo" style="border-radius: 8px;">
+                    <div class="brand-text">
+                        <h1 style="font-size: 32px; letter-spacing: -1px; color: #004080;">WBLE</h1>
+                        <p>Web-Based Learning Environment</p>
+                    </div>
+                </div>
+                <div style="margin-top: 20px; font-size: 14px; line-height: 1.6; color: var(--text-secondary);">
+                    <p>Welcome to your online classroom.</p>
+                    <p>Access lecture notes, submit assignments, and collaborate with peers.</p>
+                </div>
+                <a href="wble_landing.html" style="margin-top: 30px; font-size: 13px; display: inline-flex; align-items: center; gap: 5px;">
+                    ← Select a different campus
+                </a>
+            </div>
+
+            <div class="links-section" style="background: rgba(255,255,255,0.6);">
+                <h2 style="margin-bottom: 10px;">Returning to this web site?</h2>
+                <p style="font-size: 13px; color: var(--text-secondary); margin-bottom: 30px;">Login here using your username and password.</p>
+
+                <form id="loginForm">
+                    <div class="input-group">
+                        <label for="username">Username</label>
+                        <input type="text" id="username" placeholder="e.g. 2104307" required>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="password">Password</label>
+                        <input type="password" id="password" placeholder="Enter your password" required>
+                    </div>
+
+                    <div class="recaptcha-mock" id="recaptcha-container" style="width: 100%;">
+                        <div class="recaptcha-content-left">
+                            <div class="checkbox-box" id="recaptcha-box"></div>
+                            <div class="spinner" id="recaptcha-spinner"></div>
+                            <div class="checkmark" id="recaptcha-check">
+                                <svg width="100%" height="100%" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                                    <path d="M20 6L9 17L4 12" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </div>
+                            <span id="recaptcha-text">I'm not a robot</span>
+                        </div>
+                        <div class="recaptcha-logo">
+                            <img src="https://www.gstatic.com/recaptcha/api2/logo_48.png" alt="" style="width: 28px; opacity: 0.6;">
+                            <div class="terms-text">reCAPTCHA</div>
+                            <div class="terms-links">Privacy - Terms</div>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn-primary">Login</button>
+                    
+                    <div class="help-text">
+                        <a href="#">Forgot Password?</a>
+                        <span class="separator">•</span>
+                        <a href="#">Student Intranet</a>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </main>
+
+    <script src="assets/js/main.js"></script>
+    <script>
+        // Override the main.js redirect for WBLE specifically
+        document.addEventListener('DOMContentLoaded', () => {
+            const wbleForm = document.getElementById('loginForm');
+            if(wbleForm) {
+                // Remove old event listener by cloning (simple trick)
+                const newForm = wbleForm.cloneNode(true);
+                wbleForm.parentNode.replaceChild(newForm, wbleForm);
+                
+                // Add WBLE specific logic
+                newForm.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    // Just a mock success for WBLE
+                    const btn = newForm.querySelector('.btn-primary');
+                    btn.innerText = "Accessing WBLE...";
+                    btn.style.opacity = 0.7;
+                    setTimeout(() => {
+                        alert("Successfully logged into WBLE!");
+                        window.location.href = "home.html"; // Redirects to portal for now
+                    }, 1500);
+                });
+                
+                // Re-attach Recaptcha logic if needed, or rely on main.js if structure matches perfectly
+                // (Note: Since we cloned the node, we lost the main.js events on the form, 
+                // but the Recaptcha click event is on the DIV, which wasn't cloned/replaced, so it persists.)
+            }
+        });
+    </script>
+</body>
+</html>
