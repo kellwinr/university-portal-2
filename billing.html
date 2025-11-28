@@ -10,9 +10,9 @@
     <style>
         .billing-header-row, .billing-data-row {
             display: grid !important;
-            /* Optimized Columns: Extra space for Ref No (Col 3) and Button (Col 7) */
+            /* Optimized Columns: Wider Ref No (Col 3) and Action (Col 7) */
             grid-template-columns: 0.8fr 1.5fr 3fr 1.5fr 0.8fr 1.5fr 1.4fr !important;
-            gap: 25px !important; /* Forces columns apart */
+            gap: 25px !important; /* Forces columns apart so text doesn't touch */
             padding: 20px !important;
             align-items: center !important;
         }
@@ -23,7 +23,7 @@
             text-overflow: ellipsis;
         }
 
-        /* Fix Button Alignment */
+        /* Forces the button to look correct */
         .btn-pay-now {
             width: 100% !important;
             justify-content: center !important;
@@ -45,8 +45,26 @@
             </a>
             <nav class="nav-links">
                 <a href="home.html" class="nav-link">Home</a>
-                <a href="#" class="nav-link">Menu ▾</a>
-                <a href="#" class="nav-link">Portfolio ▾</a>
+                
+                <div class="nav-dropdown">
+                    <a href="#" class="nav-link dropdown-trigger">Menu ▾</a>
+                    <div class="dropdown-menu glass-card">
+                        <a href="#">Academic Calendar</a>
+                        <a href="#">Programme Structure</a>
+                        <a href="#">Timetable</a>
+                        <a href="#">Bus Schedule</a>
+                    </div>
+                </div>
+
+                <div class="nav-dropdown">
+                    <a href="#" class="nav-link dropdown-trigger">Portfolio ▾</a>
+                    <div class="dropdown-menu glass-card">
+                        <a href="profile.html">Profile</a>
+                        <a href="#">My Blogger</a>
+                        <a href="#">My Google+</a>
+                        <a href="#">Alumni Relations & Placement</a>
+                    </div>
+                </div>
             </nav>
             <div class="nav-user">
                 <span class="user-name">Mr./Dr./Mrs. AB Test User</span>
@@ -76,6 +94,7 @@
                 </div>
 
                 <div class="billing-table-container">
+                    
                     <div class="billing-header-row">
                         <div>Session</div>
                         <div>Billing Type</div>
@@ -104,6 +123,7 @@
                             </button>
                         </div>
                     </div>
+
                 </div>
                 
                 <div class="billing-footer">
