@@ -252,24 +252,98 @@ ul { list-style: none; }
 .info-box { display: flex; gap: 15px; background: rgba(0, 122, 255, 0.08); padding: 20px; border-radius: 12px; margin-bottom: 30px; border: 1px solid rgba(0, 122, 255, 0.2); }
 .info-box .icon { font-size: 24px; color: var(--primary-blue); }
 
-/* Billing Table */
-.billing-table-container { margin-bottom: 40px; }
-.billing-header-row { display: grid; grid-template-columns: 0.8fr 1.5fr 1fr 1fr 0.8fr 1fr 1fr; padding: 15px 20px; font-size: 12px; font-weight: 600; text-transform: uppercase; color: var(--text-secondary); }
-.billing-data-row {
-    display: grid; grid-template-columns: 0.8fr 1.5fr 1fr 1fr 0.8fr 1fr 1fr;
-    padding: 20px; align-items: center; background: rgba(255,255,255,0.6);
-    transition: transform 0.2s; border-radius: 12px;
+/* --- FIXED BILLING TABLE --- */
+.billing-table-container { 
+    margin-bottom: 40px; 
+    overflow-x: auto; /* Safety scroll for small screens */
 }
-.billing-data-row:hover { transform: scale(1.01); background: rgba(255,255,255,0.9); }
-.data-cell { font-size: 14px; font-weight: 500; }
-.amount-col { text-align: right; font-weight: 700; }
-.status-badge { padding: 5px 10px; border-radius: 20px; font-size: 12px; font-weight: 600; }
-.status-badge.success { background: #daf5e0; color: var(--utar-green); }
+
+/* New Column Ratios:
+   1. Session (0.8fr)
+   2. Type (1.5fr)
+   3. Ref No (2.5fr) <-- WIDENED THIS
+   4. Date (1.5fr)
+   5. Status (0.8fr)
+   6. Amount (1.5fr)
+   7. Action (1.2fr)
+*/
+.billing-header-row { 
+    display: grid; 
+    grid-template-columns: 0.8fr 1.5fr 2.5fr 1.5fr 0.8fr 1.5fr 1.2fr; 
+    padding: 15px 20px; 
+    gap: 20px; /* <--- CRITICAL FIX */
+    font-size: 11px; 
+    font-weight: 700; 
+    text-transform: uppercase; 
+    color: var(--text-secondary);
+    letter-spacing: 0.5px;
+}
+
+.billing-data-row {
+    display: grid; 
+    grid-template-columns: 0.8fr 1.5fr 2.5fr 1.5fr 0.8fr 1.5fr 1.2fr;
+    padding: 20px; 
+    gap: 20px; /* <--- CRITICAL FIX */
+    align-items: center; 
+    background: rgba(255,255,255,0.7);
+    transition: transform 0.2s, box-shadow 0.2s; 
+    border-radius: 12px;
+    margin-bottom: 10px;
+}
+
+.billing-data-row:hover { 
+    transform: translateY(-2px); 
+    background: #fff;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.05); 
+    z-index: 5;
+}
+
+.data-cell { 
+    font-size: 14px; 
+    font-weight: 500; 
+    white-space: nowrap; /* Prevents text from squashing */
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.amount-col { 
+    text-align: right; 
+    font-weight: 700; 
+    font-size: 15px;
+    letter-spacing: -0.5px;
+}
+
+.status-badge { 
+    padding: 6px 12px; 
+    border-radius: 20px; 
+    font-size: 11px; 
+    font-weight: 700; 
+    text-align: center;
+    display: inline-block;
+}
+.status-badge.success { background: #e1f7e6; color: var(--utar-green); }
 
 .btn-pay-now {
-    display: flex; align-items: center; gap: 8px; border: none; background: linear-gradient(to bottom, #d12026, #a8181d);
-    color: white; padding: 8px 12px; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 13px;
-    box-shadow: 0 4px 10px rgba(209, 32, 38, 0.3);
+    display: flex; 
+    align-items: center; 
+    justify-content: center;
+    gap: 8px; 
+    border: none; 
+    background: linear-gradient(to bottom, #d12026, #a8181d);
+    color: white; 
+    padding: 10px 16px; 
+    border-radius: 8px; 
+    font-weight: 600; 
+    cursor: pointer; 
+    font-size: 13px;
+    box-shadow: 0 4px 10px rgba(209, 32, 38, 0.25);
+    transition: all 0.2s;
+    width: 100%;
+}
+
+.btn-pay-now:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 15px rgba(209, 32, 38, 0.4);
 }
 
 /* =========================================
