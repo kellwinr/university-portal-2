@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UTAR WBLE | Select Campus</title>
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <link rel="icon" href="assets/img/logo-placeholder.png">
+    
+    <style>
+        /* Page Specific Styles */
+        .wble-container { max-width: 900px; margin: 0 auto; }
+        .campus-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-top: 20px; }
+        .campus-col { padding: 10px; }
+        .campus-title { font-size: 20px; font-weight: 700; margin-bottom: 20px; color: var(--text-main); display: flex; align-items: center; gap: 10px; }
+        .campus-title .dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
+        .dot.kampar { background: #ff9500; }
+        .dot.sl { background: #34c759; }
+
+        .program-group { margin-bottom: 25px; }
+        .program-label { font-size: 12px; text-transform: uppercase; font-weight: 700; color: var(--text-secondary); margin-bottom: 10px; letter-spacing: 0.5px; }
+        
+        .faculty-btn-grid { display: flex; flex-wrap: wrap; gap: 10px; }
+        
+        .btn-faculty {
+            display: inline-block; padding: 10px 16px; border-radius: 8px;
+            background: rgba(255,255,255,0.5); border: 1px solid rgba(0,0,0,0.05);
+            color: var(--text-main); font-size: 13px; font-weight: 600;
+            transition: all 0.2s; text-align: center; width: 100%;
+        }
+        .btn-faculty:hover { background: white; transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.05); color: var(--primary-blue); }
+        
+        /* Color coding specific buttons to match screenshot loosely but modern */
+        .btn-faculty.arts { border-left: 3px solid #ffcc00; }
+        .btn-faculty.science { border-left: 3px solid #ff9500; }
+        .btn-faculty.sl-arts { border-left: 3px solid #a4e4fc; }
+        .btn-faculty.sl-sci { border-left: 3px solid #34c759; }
+
+        .divider-vertical { width: 1px; background: rgba(0,0,0,0.1); margin: 0 10px; }
+
+        @media (max-width: 768px) {
+            .campus-grid { grid-template-columns: 1fr; gap: 40px; }
+            .divider-vertical { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="background-mesh"></div>
+
+    <header class="glass-nav animate-enter delay-1">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">
+                <img src="assets/img/logo-placeholder.png" alt="UTAR">
+                <span>WBLE</span>
+            </a>
+            <nav class="nav-links">
+                <a href="index.html" class="nav-link">Back to Portal</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main-container animate-enter delay-2">
+        <div class="glass-card wble-container" style="display: block; padding: 50px;">
+            
+            <div style="text-align: center; margin-bottom: 40px;">
+                <h1 style="font-size: 32px; margin-bottom: 10px;">Select Your Campus</h1>
+                <p style="color: var(--text-secondary);">Please access via your programme of study or Faculty icon.</p>
+            </div>
+
+            <div class="campus-grid">
+                
+                <div class="campus-col">
+                    <div class="campus-title"><span class="dot kampar"></span> Kampar Campus</div>
+                    
+                    <div class="program-group">
+                        <div class="program-label">Foundation</div>
+                        <a href="wble_login.html" class="btn-faculty">Foundation Programme</a>
+                    </div>
+
+                    <div class="program-group">
+                        <div class="program-label">Undergraduate</div>
+                        <div class="faculty-btn-grid">
+                            <a href="wble_login.html" class="btn-faculty arts">FAS, FEd, THP, FBF</a>
+                            <a href="wble_login.html" class="btn-faculty science">FEGT, FICT, FSc, FCS</a>
+                        </div>
+                    </div>
+
+                    <div class="program-group">
+                        <div class="program-label">Postgraduate</div>
+                        <a href="wble_login.html" class="btn-faculty">Postgraduate Programme</a>
+                    </div>
+                </div>
+
+                <div class="campus-col" style="border-left: 1px dashed rgba(0,0,0,0.1); padding-left: 40px;">
+                    <div class="campus-title"><span class="dot sl"></span> Sungai Long Campus</div>
+                    
+                    <div class="program-group">
+                        <div class="program-label">Foundation</div>
+                        <a href="wble_login.html" class="btn-faculty">Foundation Programme</a>
+                    </div>
+
+                    <div class="program-group">
+                        <div class="program-label">Undergraduate</div>
+                        <div class="faculty-btn-grid">
+                            <a href="wble_login.html" class="btn-faculty sl-arts">FAM, FCI, FEd, MK FMHS</a>
+                            <a href="wble_login.html" class="btn-faculty sl-sci">LKC FES</a>
+                        </div>
+                    </div>
+
+                    <div class="program-group">
+                        <div class="program-label">Postgraduate</div>
+                        <a href="wble_login.html" class="btn-faculty">Postgraduate Programme</a>
+                    </div>
+                </div>
+
+            </div>
+            
+            <div style="text-align: center; margin-top: 50px; font-size: 11px; color: var(--text-secondary);">
+                <p>© 2025 Universiti Tunku Abdul Rahman DU012(A). All rights reserved.</p>
+            </div>
+
+        </div>
+    </main>
+
+    <script src="assets/js/main.js"></script>
+</body>
+</html>
