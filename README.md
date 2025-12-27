@@ -1,18 +1,68 @@
-# 🎓 UTAR Portal Redesign v2 (Glassmorphism UI)
+# 🎓 University Student Portal Redesign
 
-A complete, modern UI/UX overhaul of the university student portal. This project transitions the legacy table-based interface into a responsive, Apple-inspired **Glassmorphism** design system with smooth animations and interactive elements.
+A complete **conceptual UI/UX redesign** of a university student portal.  
+This project modernises a legacy, table-based system into a **responsive, Apple-inspired Glassmorphism interface**, focusing on usability, visual hierarchy, and interaction design.
+
+> ⚠️ This is a **personal portfolio project** created for learning and demonstration purposes.  
+> It is **not affiliated with, endorsed by, or connected to any university or institution**.
 
 ![Status](https://img.shields.io/badge/Status-Complete-success)
 ![Version](https://img.shields.io/badge/Version-2.0-blue)
-![Tech](https://img.shields.io/badge/Tech-HTML%20%7C%20CSS%20%7C%20JS-orange)
+![Tech](https://img.shields.io/badge/Tech-HTML%20%7C%20CSS%20%7C%20JavaScript-orange)
 
-## 🚀 v2 Improvements (vs v1)
-The v2 update focuses on performance, interactivity, and visual hierarchy.
-- **Glassmorphism Architecture:** Full use of `backdrop-filter: blur`, translucency, and soft shadows.
-- **High-Performance Animations:** GPU-accelerated transitions, fade-ins, and a custom parallax background.
-- **Interactive Timetable:** A dynamic 30-minute interval grid with Mac-style popup windows for lecturer details.
-- **Modern Data Tables:** Replaced old HTML tables with CSS Grid layouts for better readability and responsiveness.
-- **WBLE Integration:** A dedicated flow for the Web-Based Learning Environment.
+---
+
+## 🎯 Project Objectives
+
+- Redesign a complex academic portal with **improved usability**
+- Reduce **cognitive load** through better layout and information hierarchy
+- Apply modern UI trends without sacrificing clarity
+- Demonstrate **UX thinking + front-end implementation**
+- Create a portfolio-ready system inspired by real-world academic workflows
+
+---
+
+## 🚀 v2 Improvements (Compared to v1)
+
+Version 2 focuses on **performance, interactivity, and visual polish**.
+
+- **Glassmorphism Design System**  
+  Use of `backdrop-filter: blur`, translucency, depth layers, and soft shadows to create a modern UI while maintaining readability.
+
+- **High-Performance Animations**  
+  GPU-accelerated transitions, smooth fade-ins, and a custom parallax background for subtle motion without distraction.
+
+- **Interactive Timetable System**  
+  A dynamic **30-minute interval grid** with macOS-style floating windows for lecturer and class details.
+
+- **Modern Data Presentation**  
+  Legacy HTML tables replaced with **CSS Grid layouts** for improved responsiveness and readability.
+
+- **WBLE Flow Redesign**  
+  A dedicated login and campus-selection experience for the Web-Based Learning Environment, separated from the main portal flow.
+
+---
+
+## 🧠 UX & Design Considerations
+
+- Clear information hierarchy
+- Familiar interaction patterns
+- Recognition over recall
+- Visual grouping (Gestalt principles)
+- Consistent spacing, typography, and alignment
+- Designed to minimise user confusion in high-information environments
+
+The redesign prioritises **clarity over decoration**, ensuring modern visuals do not interfere with academic usability.
+
+---
+
+## 🛠️ Tech Stack
+
+- **HTML5**
+- **CSS3** (Glassmorphism, Grid, animations)
+- **JavaScript** (UI interactions, transitions, logic)
+
+> This project is **front-end only** and focuses on layout, interaction, and UX clarity rather than backend functionality.
 
 ---
 
@@ -22,19 +72,19 @@ The v2 update focuses on performance, interactivity, and visual hierarchy.
 university-portal/
 ├── assets/
 │   ├── css/
-│   │   └── styles.css       # Unified styles for all pages (Grid, Glass, Animations)
+│   │   └── styles.css       # Unified styles (Grid, Glassmorphism, animations)
 │   ├── img/
 │   │   ├── logo-placeholder.png
-│   │   ├── Public.gif       # Public Bank logo for billing
+│   │   ├── Public.gif       # Placeholder billing logo
 │   │   └── student-photo.jpg
 │   └── js/
-│       └── main.js          # Logic for login, dropdowns, and parallax
+│       └── main.js          # Login logic, UI interactions, parallax
 │
-├── index.html               # Main Student Portal Login (Entry Point)
-├── home.html                # Main Dashboard (Highlights, Announcements, Cards)
+├── index.html               # Portal Login (Entry Point)
+├── home.html                # Dashboard (Announcements, Highlights, Cards)
 ├── billing.html             # Financial Status & Payment History
-├── profile.html             # Student Profile (ID Card Layout)
-├── timetable.html           # Class Schedule (Grid View & Mac Window Popups)
-├── wble_landing.html        # WBLE: Campus Selection Page
-├── wble_login.html          # WBLE: Dedicated Login Page
+├── profile.html             # Student Profile (Digital ID Layout)
+├── timetable.html           # Class Schedule (Grid View + Floating Windows)
+├── wble_landing.html        # WBLE Campus Selection
+├── wble_login.html          # WBLE Dedicated Login
 └── README.md                # Project Documentation
