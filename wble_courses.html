@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UTAR WBLE | Health Psychology</title>
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <link rel="icon" href="assets/img/logo-placeholder.png">
+    <style>
+        /* --- LAYOUT REUSE --- */
+        .wble-layout {
+            display: grid;
+            grid-template-columns: 260px 1fr 300px;
+            gap: 30px;
+            max-width: 1600px;
+            margin: 100px auto 30px;
+            padding: 0 30px;
+        }
+
+        /* --- COURSE HERO BANNER --- */
+        .course-hero {
+            background: linear-gradient(135deg, #34C759, #30D158); /* Green for Health Psych */
+            border-radius: 16px; padding: 30px; color: white;
+            margin-bottom: 30px; box-shadow: 0 10px 30px rgba(52, 199, 89, 0.2);
+            position: relative; overflow: hidden;
+        }
+        .course-hero h1 { font-size: 24px; margin-bottom: 5px; }
+        .course-hero p { font-size: 14px; opacity: 0.9; }
+        .course-hero .breadcrumb { font-size: 11px; text-transform: uppercase; letter-spacing: 1px; opacity: 0.8; margin-bottom: 15px; display: block; }
+
+        /* --- CONTENT SECTIONS (Weeks) --- */
+        .week-section {
+            background: rgba(255,255,255,0.7); backdrop-filter: blur(10px);
+            border-radius: 16px; border: 1px solid rgba(255,255,255,0.5);
+            margin-bottom: 25px; overflow: hidden;
+            transition: transform 0.2s;
+        }
+        .week-section:hover { background: white; box-shadow: 0 5px 20px rgba(0,0,0,0.05); }
+
+        .week-header {
+            padding: 15px 25px; background: rgba(0,0,0,0.03); border-bottom: 1px solid rgba(0,0,0,0.05);
+            font-weight: 700; color: #004080; font-size: 15px; display: flex; justify-content: space-between;
+        }
+        .week-body { padding: 20px 25px; }
+
+        /* --- RESOURCE ITEMS (Files, Links) --- */
+        .resource-item {
+            display: flex; align-items: flex-start; gap: 12px;
+            padding: 8px 0; border-bottom: 1px dashed rgba(0,0,0,0.05);
+            font-size: 14px; color: #333; transition: all 0.2s;
+        }
+        .resource-item:last-child { border-bottom: none; }
+        .resource-item:hover { transform: translateX(5px); color: #007AFF; }
+        
+        .res-icon { font-size: 18px; width: 24px; text-align: center; }
+        .res-icon.pdf { color: #d62d2d; }
+        .res-icon.word { color: #007AFF; }
+        .res-icon.video { color: #FF9500; }
+        .res-icon.link { color: #34C759; }
+        .res-icon.folder { color: #5856D6; }
+
+        /* --- SIDEBAR WIDGETS --- */
+        .sidebar-block {
+            margin-bottom: 30px;
+        }
+        .sidebar-header {
+            font-size: 12px; font-weight: 700; text-transform: uppercase; color: #86868b;
+            margin-bottom: 10px; padding-bottom: 5px; border-bottom: 2px solid rgba(0,0,0,0.05);
+        }
+        .menu-link {
+            display: block; padding: 8px 12px; border-radius: 6px;
+            color: #1d1d1f; font-size: 13px; text-decoration: none; margin-bottom: 2px;
+        }
+        .menu-link:hover { background: rgba(255,255,255,0.5); color: #007AFF; }
+        .menu-link.active { background: white; color: #007AFF; font-weight: 600; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+
+        .widget-card { background: white; border-radius: 12px; padding: 20px; margin-bottom: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.03); }
+        .news-item { font-size: 12px; margin-bottom: 10px; line-height: 1.4; border-left: 2px solid #ddd; padding-left: 10px; }
+        .news-date { font-size: 10px; color: #888; display: block; margin-top: 2px; }
+
+        /* General Content Text */
+        .intro-text { font-size: 14px; line-height: 1.6; color: #444; margin-bottom: 15px; }
+        .intro-text strong { color: #000; }
+
+        @media (max-width: 1000px) { .wble-layout { grid-template-columns: 1fr; } .left-column, .right-column { display: none; } }
+    </style>
+</head>
+<body>
+
+    <div class="background-mesh"></div>
+
+    <header class="glass-nav animate-enter delay-1" style="height: 60px;">
+        <div class="nav-container" style="max-width: 1600px;">
+            <div style="display: flex; align-items: center; gap: 15px;">
+                <img src="assets/img/logo-placeholder.png" alt="UTAR" style="height: 35px;">
+                <div style="height: 25px; width: 1px; background: #ccc;"></div>
+                <a href="wble_home.html" style="font-weight: 700; color: #004080; font-size: 18px;">WBLE <span style="font-weight:400; font-size:14px; color:#666;">Kampar</span></a>
+            </div>
+            <div class="nav-user">
+                <span class="user-name">Mr. LEE KELL WIN</span>
+                <a href="wble_login.html" class="btn-logout">Logout</a>
+            </div>
+        </div>
+    </header>
+
+    <div class="wble-layout animate-enter delay-2">
+        
+        <aside class="left-column">
+            <div class="sidebar-block">
+                <div class="sidebar-header">Course Menu</div>
+                <a href="#" class="menu-link"><span class="icon">👥</span> Participants</a>
+                <a href="#" class="menu-link"><span class="icon">🏅</span> Grades</a>
+                <a href="#" class="menu-link"><span class="icon">💬</span> Forums</a>
+                <a href="#" class="menu-link"><span class="icon">📁</span> Resources</a>
+                <a href="#" class="menu-link"><span class="icon">📝</span> Assignments</a>
+            </div>
+
+            <div class="sidebar-block">
+                <div class="sidebar-header">My Courses</div>
+                <a href="#" class="menu-link active">UAPP3063 HEALTH PSYCH</a>
+                <a href="#" class="menu-link">UAPP3074 CONTEMPORARY</a>
+                <a href="#" class="menu-link">UACC3006 INDUSTRIAL</a>
+                <a href="#" class="menu-link">UAPZ3013 FYP I</a>
+            </div>
+        </aside>
+
+        <main>
+            
+            <div class="course-hero">
+                <span class="breadcrumb">Home / Courses / FAS / Psychology / UAPP3063</span>
+                <h1>UAPP3063 HEALTH PSYCHOLOGY</h1>
+                <p>October 2025 Session | Dr. Nurul Iman</p>
+            </div>
+
+            <div class="week-section">
+                <div class="week-body">
+                    <div class="intro-text">
+                        <strong>Welcome to UAPP 3063 Health Psychology November 2025</strong><br>
+                        We have two exciting upcoming activities:<br>
+                        1. <strong>MOH Innovation Grant 2025</strong> (Simulation for Academic Purpose Only)<br>
+                        2. <strong>Townhall Session:</strong> Health Psychology & Policy Making.
+                    </div>
+                    
+                    <a href="#" class="resource-item"><span class="res-icon">🗣️</span> News forum</a>
+                    <a href="#" class="resource-item"><span class="res-icon pdf">📄</span> UAPP 3063 Health Psychology Syllabus</a>
+                    <a href="#" class="resource-item"><span class="res-icon pdf">📄</span> UAPP3063 Teaching Plan</a>
+                    <a href="#" class="resource-item"><span class="res-icon word">📝</span> Nov 2025 UAPP3063 Health Psychology Assignment Guideline</a>
+                    <a href="#" class="resource-item"><span class="res-icon link">🔗</span> MS Team Link</a>
+                    <a href="#" class="resource-item"><span class="res-icon link">🔗</span> WhatsApp Community</a>
+                </div>
+            </div>
+
+            <div class="week-section">
+                <div class="week-header">
+                    <span>3 November - 9 November</span>
+                    <span style="font-size: 12px; opacity: 0.6;">Week 1</span>
+                </div>
+                <div class="week-body">
+                    <a href="#" class="resource-item"><span class="res-icon pdf">📄</span> Topic 1a Foundation of Health Psychology</a>
+                    <a href="#" class="resource-item"><span class="res-icon pdf">📄</span> Topic 1b Body Systems</a>
+                    <a href="#" class="resource-item"><span class="res-icon folder">📁</span> Tutorial Week 1</a>
+                    <a href="#" class="resource-item"><span class="res-icon link">🔗</span> Additional Reading Material (APA)</a>
+                    <a href="#" class="resource-item"><span class="res-icon video">▶️</span> Video (Living with Huntington's Disease)</a>
+                    <a href="#" class="resource-item"><span class="res-icon video">▶️</span> Video (Driving with Parkinson's Disease)</a>
+                </div>
+            </div>
+
+            <div class="week-section">
+                <div class="week-header">
+                    <span>10 November - 16 November</span>
+                    <span style="font-size: 12px; opacity: 0.6;">Week 2</span>
+                </div>
+                <div class="week-body">
+                    <a href="#" class="resource-item"><span class="res-icon pdf">📄</span> Topic 2a Stress</a>
+                    <a href="#" class="resource-item"><span class="res-icon pdf">📄</span> Topic 2b Coping with Stress</a>
+                    <a href="#" class="resource-item"><span class="res-icon pdf">📄</span> Updated UAPP3063_T2 Part 1_Stress</a>
+                    <a href="#" class="resource-item"><span class="res-icon folder">📁</span> Tutorial Week 2</a>
+                    <a href="#" class="resource-item"><span class="res-icon word">📝</span> Tutorial Week 2 (Answer)</a>
+                    <a href="#" class="resource-item"><span class="res-icon link">🔗</span> Additional Reading Material (VeryWellMind)</a>
+                    <a href="#" class="resource-item"><span class="res-icon video">▶️</span> Video: HPA Axis (Biological of Stress)</a>
+                    
+                    <div style="margin-top: 15px; padding: 10px; background: #fff8e1; border-radius: 8px; font-size: 13px; border-left: 3px solid #ffcc00;">
+                        <strong>MOH Health Innovation Grant 2025 - Important Updates</strong><br>
+                        Please submit your questions via Slido. Discuss within your team first!
+                    </div>
+                </div>
+            </div>
+
+            <div class="week-section">
+                <div class="week-header">
+                    <span>17 November - 23 November</span>
+                    <span style="font-size: 12px; opacity: 0.6;">Week 3</span>
+                </div>
+                <div class="week-body">
+                    <a href="#" class="resource-item"><span class="res-icon pdf">📄</span> Topic 3a Health Behaviours</a>
+                    <a href="#" class="resource-item"><span class="res-icon pdf">📄</span> Topic 3b Health Promoting and Compromising</a>
+                    <a href="#" class="resource-item"><span class="res-icon folder">📁</span> Tutorial Week 3</a>
+                    <a href="#" class="resource-item"><span class="res-icon video">▶️</span> Video (Trans-Theoretical Model of Behaviour Change)</a>
+                </div>
+            </div>
+
+        </main>
+
+        <aside class="right-column">
+            
+            <div class="widget-card">
+                <div class="sidebar-header">Latest News</div>
+                <div class="news-item">
+                    No news has been posted yet.
+                </div>
+            </div>
+
+            <div class="widget-card">
+                <div class="sidebar-header">Upcoming Events</div>
+                <div class="news-item">
+                    <strong>Submission: Grant Proposal</strong>
+                    <span class="news-date">Fri, 12 Dec, 11:59 PM</span>
+                </div>
+                <div class="news-item">
+                    <strong>Final Exam Briefing</strong>
+                    <span class="news-date">Mon, 15 Dec, 2:00 PM</span>
+                </div>
+            </div>
+
+            <div class="widget-card">
+                <div class="sidebar-header">Recent Activity</div>
+                <div class="news-item">
+                    Activity since Thursday, 1 January 2026, 08:43 AM<br>
+                    <a href="#">Full report of recent activity...</a>
+                </div>
+            </div>
+
+        </aside>
+
+    </div>
+
+    <script src="assets/js/main.js"></script>
+</body>
+</html>
