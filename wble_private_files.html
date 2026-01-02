@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UTAR WBLE | Private Files</title>
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <link rel="icon" href="assets/img/logo-placeholder.png">
+    <style>
+        /* --- LAYOUT REUSE --- */
+        .wble-layout {
+            display: grid;
+            grid-template-columns: 260px 1fr 300px;
+            gap: 30px;
+            max-width: 1600px;
+            margin: 100px auto 30px;
+            padding: 0 30px;
+        }
+
+        /* --- SIDEBAR STYLES --- */
+        .wble-sidebar-title { font-size: 12px; font-weight: 700; text-transform: uppercase; color: #86868b; margin-bottom: 15px; letter-spacing: 1px; }
+        .wble-nav-item { display: flex; align-items: center; gap: 10px; padding: 12px 15px; margin-bottom: 8px; background: rgba(255,255,255,0.5); border-radius: 10px; color: #1d1d1f; font-size: 14px; font-weight: 500; transition: all 0.2s; text-decoration: none; }
+        .wble-nav-item:hover, .wble-nav-item.active { background: white; color: #007AFF; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
+        .wble-nav-item .icon { font-size: 18px; width: 24px; text-align: center; }
+
+        /* --- FILE MANAGER STYLES --- */
+        .file-manager-card {
+            background: rgba(255,255,255,0.8); backdrop-filter: blur(10px);
+            border-radius: 16px; border: 1px solid rgba(255,255,255,0.5);
+            overflow: hidden; padding: 30px;
+        }
+
+        /* Storage Bar */
+        .storage-info { margin-bottom: 30px; }
+        .storage-header { display: flex; justify-content: space-between; font-size: 13px; font-weight: 600; color: #555; margin-bottom: 8px; }
+        .progress-bar-bg { width: 100%; height: 8px; background: #e0e0e0; border-radius: 4px; overflow: hidden; }
+        .progress-bar-fill { height: 100%; width: 45%; background: linear-gradient(90deg, #007AFF, #5AC8FA); border-radius: 4px; }
+
+        /* Drag Drop Zone */
+        .upload-zone {
+            border: 2px dashed #ccc; border-radius: 12px; background: rgba(255,255,255,0.5);
+            height: 120px; display: flex; flex-direction: column; align-items: center; justify-content: center;
+            color: #888; font-size: 14px; margin-bottom: 30px; transition: all 0.2s; cursor: pointer;
+        }
+        .upload-zone:hover { border-color: #007AFF; background: rgba(0,122,255,0.05); color: #007AFF; }
+        .upload-icon { font-size: 32px; margin-bottom: 10px; color: #ccc; }
+        .upload-zone:hover .upload-icon { color: #007AFF; }
+
+        /* File List Table */
+        .file-table { width: 100%; border-collapse: collapse; font-size: 14px; }
+        .file-table th { text-align: left; padding: 15px 10px; color: #888; font-weight: 600; font-size: 12px; text-transform: uppercase; border-bottom: 1px solid #ddd; }
+        .file-table td { padding: 15px 10px; border-bottom: 1px solid #eee; color: #333; vertical-align: middle; }
+        .file-table tr:last-child td { border-bottom: none; }
+        .file-table tr:hover { background: rgba(255,255,255,0.8); }
+
+        .file-name { display: flex; align-items: center; gap: 12px; font-weight: 500; }
+        .file-icon { font-size: 20px; }
+        .file-action { color: #007AFF; cursor: pointer; opacity: 0.6; transition: opacity 0.2s; font-size: 16px; margin-left: 10px; }
+        .file-action:hover { opacity: 1; }
+
+        /* Icons from previous styles */
+        .res-icon.pdf { color: #d62d2d; }
+        .res-icon.word { color: #007AFF; }
+        .res-icon.excel { color: #34C759; }
+        .res-icon.img { color: #FF9500; }
+        .res-icon.zip { color: #5856D6; }
+
+        /* --- WIDGETS --- */
+        .widget-card { background: white; border-radius: 12px; padding: 20px; margin-bottom: 25px; box-shadow: 0 4px 15px rgba(0,0,0,0.03); }
+        .widget-title { font-size: 14px; font-weight: 700; margin-bottom: 20px; color: #1d1d1f; display: flex; justify-content: space-between; align-items: center; }
+        
+        .mini-calendar { width: 100%; border-collapse: separate; border-spacing: 2px; }
+        .mini-calendar th { font-size: 11px; color: #86868b; font-weight: 600; padding-bottom: 8px; text-align: center; }
+        .mini-calendar td { text-align: center; vertical-align: middle; width: 32px; height: 32px; padding: 0; }
+        .date-wrapper { width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto; font-size: 12px; font-weight: 600; color: #1d1d1f; cursor: default; }
+        .mini-calendar td.today .date-wrapper { background: #007AFF; color: white; }
+        .mini-calendar td.dim .date-wrapper { color: #d1d1d6; }
+
+        @media (max-width: 1200px) { .wble-layout { grid-template-columns: 220px 1fr; } .right-column { display: none; } }
+        @media (max-width: 850px) { .wble-layout { grid-template-columns: 1fr; } .left-column { display: none; } }
+    </style>
+</head>
+<body>
+
+    <div class="background-mesh"></div>
+
+    <header class="glass-nav animate-enter delay-1" style="height: 60px;">
+        <div class="nav-container" style="max-width: 1600px;">
+            <div style="display: flex; align-items: center; gap: 15px;">
+                <img src="assets/img/logo-placeholder.png" alt="UTAR" style="height: 35px;">
+                <div style="height: 25px; width: 1px; background: #ccc;"></div>
+                <a href="wble_home.html" style="font-weight: 700; color: #004080; font-size: 18px;">WBLE <span style="font-weight:400; font-size:14px; color:#666;">Kampar</span></a>
+            </div>
+            <div class="nav-user">
+                <span class="user-name">Mr. LEE KELL WIN</span>
+                <a href="wble_login.html" class="btn-logout">Logout</a>
+            </div>
+        </div>
+    </header>
+
+    <div class="wble-layout animate-enter delay-2">
+        
+        <aside class="left-column">
+            <div class="wble-sidebar-title">Main Menu</div>
+            <a href="wble_home.html" class="wble-nav-item"><span class="icon">🏠</span> Dashboard</a>
+            <a href="wble_calendar.html" class="wble-nav-item"><span class="icon">📅</span> My Calendar</a>
+            <a href="wble_private_files.html" class="wble-nav-item active"><span class="icon">📂</span> Private Files</a>
+            
+            <div class="wble-sidebar-title" style="margin-top: 30px;">Quick Links</div>
+            <a href="https://library.utar.edu.my/" target="_blank" class="wble-nav-item"><span class="icon">📖</span> Library</a>
+            <a href="index.html" class="wble-nav-item"><span class="icon">🎓</span> Student Portal</a>
+            <a href="https://mail.google.com/" target="_blank" class="wble-nav-item"><span class="icon">📧</span> UTAR Email</a>
+        </aside>
+
+        <main>
+            <h2 style="font-size: 24px; margin-bottom: 20px;">Private Files</h2>
+            
+            <div class="file-manager-card">
+                
+                <div class="storage-info">
+                    <div class="storage-header">
+                        <span>Storage Used</span>
+                        <span>45 MB / 100 MB</span>
+                    </div>
+                    <div class="progress-bar-bg">
+                        <div class="progress-bar-fill"></div>
+                    </div>
+                </div>
+
+                <div class="upload-zone" onclick="alert('File upload dialog would open here.')">
+                    <div class="upload-icon">☁️</div>
+                    <p><strong>Click to upload</strong> or drag and drop files here</p>
+                    <p style="font-size: 11px; margin-top: 5px;">Max file size: 50MB</p>
+                </div>
+
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                    <h3 style="font-size: 16px;">My Files</h3>
+                    <div style="font-size: 13px; color: #007AFF; cursor: pointer;">+ New Folder</div>
+                </div>
+
+                <table class="file-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Date Modified</th>
+                            <th>Size</th>
+                            <th>Type</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <div class="file-name"><span class="res-icon word">📄</span> Assignment_Draft_v1.docx</div>
+                            </td>
+                            <td>Nov 28, 2025</td>
+                            <td>2.4 MB</td>
+                            <td>Document</td>
+                            <td><span class="file-action">⬇️</span><span class="file-action">🗑️</span></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="file-name"><span class="res-icon pdf">📄</span> Health_Psych_Research.pdf</div>
+                            </td>
+                            <td>Nov 25, 2025</td>
+                            <td>4.1 MB</td>
+                            <td>PDF</td>
+                            <td><span class="file-action">⬇️</span><span class="file-action">🗑️</span></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="file-name"><span class="res-icon excel">📊</span> Lab_Results_Data.xlsx</div>
+                            </td>
+                            <td>Nov 20, 2025</td>
+                            <td>1.2 MB</td>
+                            <td>Spreadsheet</td>
+                            <td><span class="file-action">⬇️</span><span class="file-action">🗑️</span></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="file-name"><span class="res-icon img">🖼️</span> Project_Poster_Final.jpg</div>
+                            </td>
+                            <td>Nov 15, 2025</td>
+                            <td>8.5 MB</td>
+                            <td>Image</td>
+                            <td><span class="file-action">⬇️</span><span class="file-action">🗑️</span></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="file-name"><span class="res-icon zip">📦</span> Backup_Notes.zip</div>
+                            </td>
+                            <td>Oct 30, 2025</td>
+                            <td>28.0 MB</td>
+                            <td>Archive</td>
+                            <td><span class="file-action">⬇️</span><span class="file-action">🗑️</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </div>
+        </main>
+
+        <aside class="right-column">
+            <div class="widget-card">
+                <div class="widget-title">Calendar <span id="calendar-month-year">...</span></div>
+                <table class="mini-calendar">
+                    <thead><tr><th>Su</th><th>Mo</th><th>Tu</th><th>We</th><th>Th</th><th>Fr</th><th>Sa</th></tr></thead>
+                    <tbody id="calendar-body"></tbody>
+                </table>
+            </div>
+            
+            <div class="widget-card">
+                <div class="widget-title">Quick Actions</div>
+                <button class="btn-primary" style="width: 100%; margin-bottom: 10px; font-size: 13px;">Download All</button>
+                <button class="btn-primary" style="width: 100%; background: #fff; color: #d62d2d; border: 1px solid #d62d2d; font-size: 13px;">Clear All Files</button>
+            </div>
+        </aside>
+
+    </div>
+
+    <script src="assets/js/main.js"></script>
+    <script>
+        // Reuse Calendar Logic
+        document.addEventListener('DOMContentLoaded', initCalendar);
+        function initCalendar() {
+            const date = new Date();
+            const year = date.getFullYear();
+            const month = date.getMonth(); 
+            const today = date.getDate();
+            const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+            document.getElementById('calendar-month-year').innerText = `${months[month]} ${year}`;
+            const firstDayIndex = new Date(year, month, 1).getDay(); 
+            const lastDay = new Date(year, month + 1, 0).getDate(); 
+            const prevLastDay = new Date(year, month, 0).getDate(); 
+            const calendarBody = document.getElementById('calendar-body');
+            let html = "";
+            let dayCounter = 1;
+            let nextMonthCounter = 1;
+            for (let i = 0; i < 6; i++) {
+                html += "<tr>";
+                for (let j = 0; j < 7; j++) {
+                    if (i === 0 && j < firstDayIndex) {
+                        const prevDay = prevLastDay - (firstDayIndex - 1 - j);
+                        html += `<td class="dim"><div class="date-wrapper">${prevDay}</div></td>`;
+                    } else if (dayCounter <= lastDay) {
+                        const isToday = (dayCounter === today) ? "today" : "";
+                        html += `<td class="${isToday}"><div class="date-wrapper">${dayCounter}</div></td>`;
+                        dayCounter++;
+                    } else {
+                        html += `<td class="dim"><div class="date-wrapper">${nextMonthCounter}</div></td>`;
+                        nextMonthCounter++;
+                    }
+                }
+                html += "</tr>";
+                if (dayCounter > lastDay && (firstDayIndex + lastDay) <= (i + 1) * 7) break; 
+            }
+            calendarBody.innerHTML = html;
+        }
+    </script>
+</body>
+</html>
