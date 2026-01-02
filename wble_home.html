@@ -7,20 +7,17 @@
     <link rel="stylesheet" href="assets/css/styles.css">
     <link rel="icon" href="assets/img/logo-placeholder.png">
     <style>
-        /* --- WBLE DASHBOARD LAYOUT --- */
+        /* --- WBLE LAYOUT (Fixed Top Margin) --- */
         .wble-layout {
             display: grid;
-            grid-template-columns: 260px 1fr 300px; /* Left Sidebar | Main | Right Widgets */
+            grid-template-columns: 260px 1fr 300px;
             gap: 30px;
             max-width: 1600px;
-            
-            /* FIX: Increased margin-top to 100px to clear the fixed header */
-            margin: 100px auto 30px; 
-            
+            margin: 100px auto 30px; /* 100px top margin prevents clipping */
             padding: 0 30px;
         }
 
-        /* --- LEFT SIDEBAR (Quick Links) --- */
+        /* --- SIDEBAR --- */
         .wble-sidebar-title {
             font-size: 12px; font-weight: 700; text-transform: uppercase; 
             color: #86868b; margin-bottom: 15px; letter-spacing: 1px;
@@ -37,7 +34,7 @@
         }
         .wble-nav-item .icon { font-size: 18px; width: 24px; text-align: center; }
 
-        /* --- MAIN CONTENT (Courses) --- */
+        /* --- MAIN CONTENT --- */
         .wble-banner {
             background: linear-gradient(to right, rgba(255,255,255,0.8), rgba(240, 248, 255, 0.8));
             padding: 25px; border-radius: 16px; margin-bottom: 30px;
@@ -77,26 +74,48 @@
         .course-title { font-size: 15px; font-weight: 700; color: #1d1d1f; margin-bottom: 5px; line-height: 1.4; }
         .course-meta { font-size: 12px; color: #86868b; margin-top: auto; padding-top: 15px; border-top: 1px dashed rgba(0,0,0,0.1); }
 
-        /* --- RIGHT WIDGETS --- */
+        /* --- WIDGETS & CALENDAR (UPDATED) --- */
         .widget-card {
             background: white; border-radius: 16px; padding: 20px; margin-bottom: 25px;
             box-shadow: 0 4px 20px rgba(0,0,0,0.03); border: 1px solid rgba(0,0,0,0.05);
         }
-        .widget-title { font-size: 14px; font-weight: 700; margin-bottom: 15px; color: #1d1d1f; display: flex; justify-content: space-between; align-items: center; }
+        .widget-title { font-size: 14px; font-weight: 700; margin-bottom: 20px; color: #1d1d1f; display: flex; justify-content: space-between; align-items: center; }
         
-        /* Calendar Styles (Mini) */
-        .mini-calendar { width: 100%; text-align: center; font-size: 12px; }
-        .mini-calendar th { color: #86868b; font-weight: 500; padding: 5px 0; }
-        .mini-calendar td { padding: 8px 0; font-weight: 600; color: #333; }
-        .mini-calendar td.today { background: #007AFF; color: white; border-radius: 50%; width: 24px; height: 24px; display: inline-block; line-height: 24px; }
-        .mini-calendar td.dim { color: #ccc; }
+        /* Fixed Calendar Layout */
+        .mini-calendar { width: 100%; border-collapse: separate; border-spacing: 2px; }
+        .mini-calendar th { font-size: 11px; color: #86868b; font-weight: 600; padding-bottom: 8px; text-align: center; }
+        .mini-calendar td { 
+            text-align: center; vertical-align: middle; 
+            width: 32px; height: 32px; 
+            padding: 0;
+        }
+        
+        /* Perfect Circle Alignment */
+        .date-wrapper {
+            width: 28px; height: 28px; 
+            border-radius: 50%; 
+            display: flex; align-items: center; justify-content: center;
+            margin: 0 auto;
+            font-size: 12px; font-weight: 600; color: #1d1d1f;
+            cursor: default;
+            transition: all 0.2s;
+        }
+        
+        /* Highlight Today */
+        .mini-calendar td.today .date-wrapper {
+            background: #007AFF; color: white;
+            box-shadow: 0 2px 6px rgba(0, 122, 255, 0.4);
+        }
+        .mini-calendar td.today .date-wrapper:hover { transform: scale(1.1); }
+        
+        /* Dimmed Dates */
+        .mini-calendar td.dim .date-wrapper { color: #d1d1d6; }
 
         /* User List */
         .user-list-item { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; font-size: 12px; font-weight: 500; }
         .user-avatar { width: 28px; height: 28px; background: #eee; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 14px; }
         .user-status { width: 8px; height: 8px; background: #34c759; border-radius: 50%; margin-left: auto; }
 
-        /* Responsive */
         @media (max-width: 1200px) { .wble-layout { grid-template-columns: 220px 1fr; } .right-column { display: none; } }
         @media (max-width: 850px) { .wble-layout { grid-template-columns: 1fr; } .left-column { display: none; } }
     </style>
@@ -113,7 +132,7 @@
                 <span style="font-weight: 700; color: #004080; font-size: 18px;">WBLE <span style="font-weight:400; font-size:14px; color:#666;">Kampar Campus</span></span>
             </div>
             <div class="nav-user">
-                <span class="user-name">Mr./Mrs./Dr./Prof. STUDENT NAME</span>
+                <span class="user-name">Mr. LEE KELL WIN</span>
                 <a href="wble_login.html" class="btn-logout">Logout</a>
             </div>
         </div>
@@ -218,18 +237,14 @@
         <aside class="right-column">
             
             <div class="widget-card">
-                <div class="widget-title">Calendar <span>Jan 2026</span></div>
+                <div class="widget-title">Calendar <span id="calendar-month-year">...</span></div>
+                
                 <table class="mini-calendar">
                     <thead>
                         <tr><th>Su</th><th>Mo</th><th>Tu</th><th>We</th><th>Th</th><th>Fr</th><th>Sa</th></tr>
                     </thead>
-                    <tbody>
-                        <tr><td class="dim">28</td><td class="dim">29</td><td class="dim">30</td><td class="dim">31</td><td>1</td><td class="today">2</td><td>3</td></tr>
-                        <tr><td>4</td><td>5</td><td>6</td><td>7</td><td>8</td><td>9</td><td>10</td></tr>
-                        <tr><td>11</td><td>12</td><td>13</td><td>14</td><td>15</td><td>16</td><td>17</td></tr>
-                        <tr><td>18</td><td>19</td><td>20</td><td>21</td><td>22</td><td>23</td><td>24</td></tr>
-                        <tr><td>25</td><td>26</td><td>27</td><td>28</td><td>29</td><td>30</td><td>31</td></tr>
-                    </tbody>
+                    <tbody id="calendar-body">
+                        </tbody>
                 </table>
             </div>
 
@@ -237,24 +252,24 @@
                 <div class="widget-title">Online Users (5 min)</div>
                 
                 <div class="user-list-item">
-                    <div class="user-avatar" style="background:#e3f2fd; color:#007aff;">LK</div>
-                    <span>ALISSA</span> <div class="user-status"></div>
+                    <div class="user-avatar" style="background:#e3f2fd; color:#007aff;">L</div>
+                    <span>LEE</span> <div class="user-status"></div>
                 </div>
                 <div class="user-list-item">
                     <div class="user-avatar">L</div>
                     <span>LEE</span> <div class="user-status"></div>
                 </div>
                 <div class="user-list-item">
-                    <div class="user-avatar">J</div>
-                    <span>JESS</span> <div class="user-status"></div>
+                    <div class="user-avatar">C</div>
+                    <span>CECIL</span> <div class="user-status"></div>
                 </div>
                 <div class="user-list-item">
-                    <div class="user-avatar">K</div>
-                    <span>KENT</span> <div class="user-status"></div>
+                    <div class="user-avatar">A</div>
+                    <span>ALLISON</span> <div class="user-status"></div>
                 </div>
                 <div class="user-list-item">
-                    <div class="user-avatar">E</div>
-                    <span>ESTHER</span> <div class="user-status"></div>
+                    <div class="user-avatar">A</div>
+                    <span>ALI</span> <div class="user-status"></div>
                 </div>
                 <div class="user-list-item">
                     <div class="user-avatar">E</div>
@@ -272,5 +287,68 @@
     </div>
 
     <script src="assets/js/main.js"></script>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', initCalendar);
+
+        function initCalendar() {
+            const date = new Date();
+            const year = date.getFullYear();
+            const month = date.getMonth(); // 0-11
+            const today = date.getDate();
+
+            // Month Names
+            const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+            document.getElementById('calendar-month-year').innerText = `${months[month]} ${year}`;
+
+            // Calculations
+            const firstDayIndex = new Date(year, month, 1).getDay(); // Day of week (0-6) of the 1st
+            const lastDay = new Date(year, month + 1, 0).getDate(); // Last day of current month
+            const prevLastDay = new Date(year, month, 0).getDate(); // Last day of prev month
+            
+            const calendarBody = document.getElementById('calendar-body');
+            let html = "";
+            let dayCounter = 1;
+            let nextMonthCounter = 1;
+
+            // Loop rows (max 6 rows)
+            for (let i = 0; i < 6; i++) {
+                html += "<tr>";
+                
+                // Loop days (7)
+                for (let j = 0; j < 7; j++) {
+                    
+                    // Previous Month padding
+                    if (i === 0 && j < firstDayIndex) {
+                        const prevDay = prevLastDay - (firstDayIndex - 1 - j);
+                        html += `<td class="dim"><div class="date-wrapper">${prevDay}</div></td>`;
+                    } 
+                    // Current Month
+                    else if (dayCounter <= lastDay) {
+                        const isToday = (dayCounter === today) ? "today" : "";
+                        html += `<td class="${isToday}"><div class="date-wrapper">${dayCounter}</div></td>`;
+                        dayCounter++;
+                    } 
+                    // Next Month padding
+                    else {
+                        html += `<td class="dim"><div class="date-wrapper">${nextMonthCounter}</div></td>`;
+                        nextMonthCounter++;
+                    }
+                }
+                
+                html += "</tr>";
+                
+                // Stop loop if we finished current month and filled the row
+                if (dayCounter > lastDay && nextMonthCounter > 1 && (nextMonthCounter - 1) % 7 !== 0) {
+                    // Fill remaining cells for visual balance if needed, but break usually looks fine
+                }
+                if (dayCounter > lastDay && (firstDayIndex + lastDay) <= (i + 1) * 7) {
+                    break; 
+                }
+            }
+            
+            calendarBody.innerHTML = html;
+        }
+    </script>
 </body>
 </html>
