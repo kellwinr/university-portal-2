@@ -17,9 +17,9 @@
             padding: 0 30px;
         }
 
-        /* --- COURSE HERO BANNER --- */
+        /* --- COURSE HERO --- */
         .course-hero {
-            background: linear-gradient(135deg, #34C759, #30D158); /* Green for Health Psych */
+            background: linear-gradient(135deg, #34C759, #30D158);
             border-radius: 16px; padding: 30px; color: white;
             margin-bottom: 30px; box-shadow: 0 10px 30px rgba(52, 199, 89, 0.2);
             position: relative; overflow: hidden;
@@ -27,10 +27,10 @@
         .course-hero h1 { font-size: 24px; margin-bottom: 5px; }
         .course-hero p { font-size: 14px; opacity: 0.9; }
         .course-hero .breadcrumb { font-size: 11px; text-transform: uppercase; letter-spacing: 1px; opacity: 0.8; margin-bottom: 15px; display: block; }
-        .course-hero .breadcrumb a { color: white; text-decoration: none; opacity: 0.8; }
-        .course-hero .breadcrumb a:hover { opacity: 1; text-decoration: underline; }
+        .course-hero .breadcrumb a { color: white; text-decoration: none; opacity: 0.8; border-bottom: 1px solid transparent; }
+        .course-hero .breadcrumb a:hover { opacity: 1; border-bottom-color: white; }
 
-        /* --- CONTENT SECTIONS (Weeks) --- */
+        /* --- CONTENT SECTIONS --- */
         .week-section {
             background: rgba(255,255,255,0.7); backdrop-filter: blur(10px);
             border-radius: 16px; border: 1px solid rgba(255,255,255,0.5);
@@ -45,7 +45,7 @@
         }
         .week-body { padding: 20px 25px; }
 
-        /* --- RESOURCE ITEMS (Files, Links) --- */
+        /* --- RESOURCE ITEMS --- */
         .resource-item {
             display: flex; align-items: flex-start; gap: 12px;
             padding: 8px 0; border-bottom: 1px dashed rgba(0,0,0,0.05);
@@ -61,10 +61,8 @@
         .res-icon.link { color: #34C759; }
         .res-icon.folder { color: #5856D6; }
 
-        /* --- SIDEBAR WIDGETS --- */
-        .sidebar-block {
-            margin-bottom: 30px;
-        }
+        /* --- SIDEBAR --- */
+        .sidebar-block { margin-bottom: 30px; }
         .sidebar-header {
             font-size: 12px; font-weight: 700; text-transform: uppercase; color: #86868b;
             margin-bottom: 10px; padding-bottom: 5px; border-bottom: 2px solid rgba(0,0,0,0.05);
@@ -80,14 +78,12 @@
         .widget-card { background: white; border-radius: 12px; padding: 20px; margin-bottom: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.03); }
         .news-item { font-size: 12px; margin-bottom: 10px; line-height: 1.4; border-left: 2px solid #ddd; padding-left: 10px; }
         .news-date { font-size: 10px; color: #888; display: block; margin-top: 2px; }
-
-        /* General Content Text */
         .intro-text { font-size: 14px; line-height: 1.6; color: #444; margin-bottom: 15px; }
         .intro-text strong { color: #000; }
 
         @media (max-width: 1000px) { .wble-layout { grid-template-columns: 1fr; } .left-column, .right-column { display: none; } }
-        
-        /* MAC WINDOW STYLES (Reused from timetable but centered) */
+
+        /* --- MAC WINDOW POPUP --- */
         .modal-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(0, 0, 0, 0.4); backdrop-filter: blur(5px);
@@ -97,28 +93,37 @@
         .modal-overlay.open { display: flex; opacity: 1; }
         
         .mac-window {
-            width: 800px; max-width: 90%; background: #fff;
-            border-radius: 12px; box-shadow: 0 30px 80px rgba(0,0,0,0.5);
-            overflow: hidden; transform: scale(0.9); transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            width: 850px; max-width: 95%; background: #fff;
+            border-radius: 12px; box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5);
+            overflow: hidden; transform: scale(0.9); border: 1px solid rgba(0,0,0,0.1);
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
         .modal-overlay.open .mac-window { transform: scale(1); }
         
-        .mac-title-bar { background: #efefef; height: 38px; display: flex; align-items: center; padding: 0 15px; border-bottom: 1px solid #dcdcdc; position: relative; }
+        .mac-title-bar {
+            background: #efefef; height: 38px; display: flex; align-items: center;
+            padding: 0 15px; border-bottom: 1px solid #dcdcdc; position: relative;
+        }
         .traffic-lights { display: flex; gap: 8px; }
         .dot { width: 12px; height: 12px; border-radius: 50%; }
         .dot.red { background: #ff5f56; border: 1px solid #e0443e; cursor: pointer; }
         .dot.yellow { background: #ffbd2e; border: 1px solid #dea123; }
         .dot.green { background: #27c93f; border: 1px solid #1aab29; }
         .window-title { position: absolute; left: 0; right: 0; text-align: center; font-weight: 600; font-size: 13px; color: #444; pointer-events: none; }
-        .mac-body { padding: 0; max-height: 70vh; overflow-y: auto; }
         
-        /* Modal Content Tables */
+        .mac-body { padding: 0; max-height: 70vh; overflow-y: auto; background: #fff; }
+
+        /* --- MODAL TABLE STYLES --- */
         .modal-table { width: 100%; border-collapse: collapse; font-size: 13px; }
-        .modal-table th { background: #f5f5f7; text-align: left; padding: 12px 15px; border-bottom: 1px solid #ddd; font-weight: 600; color: #333; }
-        .modal-table td { padding: 12px 15px; border-bottom: 1px solid #eee; color: #444; }
-        .modal-table tr:hover { background: #fafafa; }
-        .user-row { display: flex; align-items: center; gap: 10px; }
-        .user-pic { width: 24px; height: 24px; background: #ddd; border-radius: 50%; }
+        .modal-table th { 
+            background: #f5f5f7; text-align: left; padding: 12px 20px; 
+            border-bottom: 1px solid #d1d1d6; font-weight: 600; color: #333; 
+            position: sticky; top: 0;
+        }
+        .modal-table td { padding: 12px 20px; border-bottom: 1px solid #eee; color: #333; }
+        .modal-table tr:hover { background: #f9f9f9; }
+        
+        .user-pic { width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 12px; }
     </style>
 </head>
 <body>
@@ -133,7 +138,7 @@
                 <a href="wble_home.html" style="font-weight: 700; color: #004080; font-size: 18px;">WBLE <span style="font-weight:400; font-size:14px; color:#666;">Kampar</span></a>
             </div>
             <div class="nav-user">
-                <span class="user-name">Mr. LEE KELL WIN</span>
+                <span class="user-name">Mr. AB Test User</span>
                 <a href="wble_login.html" class="btn-logout">Logout</a>
             </div>
         </div>
@@ -161,14 +166,9 @@
         </aside>
 
         <main>
-            
             <div class="course-hero">
                 <span class="breadcrumb">
-                    <a href="wble_home.html">Home</a> / 
-                    <a href="wble_home.html">Courses</a> / 
-                    <a href="#">FAS</a> / 
-                    <a href="#">Psychology</a> / 
-                    UAPP3063
+                    <a href="wble_home.html">Home</a> / <a href="wble_home.html">Courses</a> / <a href="#">FAS</a> / <a href="#">Psychology</a> / UAPP3063
                 </span>
                 <h1>UAPP3063 HEALTH PSYCHOLOGY</h1>
                 <p>October 2025 Session | Dr. Nurul Iman</p>
@@ -182,65 +182,19 @@
                         1. <strong>MOH Innovation Grant 2025</strong> (Simulation for Academic Purpose Only)<br>
                         2. <strong>Townhall Session:</strong> Health Psychology & Policy Making.
                     </div>
-                    
                     <a href="#" class="resource-item"><span class="res-icon">🗣️</span> News forum</a>
                     <a href="#" class="resource-item"><span class="res-icon pdf">📄</span> UAPP 3063 Health Psychology Syllabus</a>
-                    <a href="#" class="resource-item"><span class="res-icon pdf">📄</span> UAPP3063 Teaching Plan</a>
-                    <a href="#" class="resource-item"><span class="res-icon word">📝</span> Nov 2025 UAPP3063 Health Psychology Assignment Guideline</a>
                     <a href="#" class="resource-item"><span class="res-icon link">🔗</span> MS Team Link</a>
-                    <a href="#" class="resource-item"><span class="res-icon link">🔗</span> WhatsApp Community</a>
                 </div>
             </div>
 
             <div class="week-section">
-                <div class="week-header">
-                    <span>3 November - 9 November</span>
-                    <span style="font-size: 12px; opacity: 0.6;">Week 1</span>
-                </div>
+                <div class="week-header"><span>3 November - 9 November</span><span style="font-size: 12px; opacity: 0.6;">Week 1</span></div>
                 <div class="week-body">
                     <a href="#" class="resource-item"><span class="res-icon pdf">📄</span> Topic 1a Foundation of Health Psychology</a>
-                    <a href="#" class="resource-item"><span class="res-icon pdf">📄</span> Topic 1b Body Systems</a>
-                    <a href="#" class="resource-item"><span class="res-icon folder">📁</span> Tutorial Week 1</a>
-                    <a href="#" class="resource-item"><span class="res-icon link">🔗</span> Additional Reading Material (APA)</a>
                     <a href="#" class="resource-item"><span class="res-icon video">▶️</span> Video (Living with Huntington's Disease)</a>
-                    <a href="#" class="resource-item"><span class="res-icon video">▶️</span> Video (Driving with Parkinson's Disease)</a>
                 </div>
             </div>
-
-            <div class="week-section">
-                <div class="week-header">
-                    <span>10 November - 16 November</span>
-                    <span style="font-size: 12px; opacity: 0.6;">Week 2</span>
-                </div>
-                <div class="week-body">
-                    <a href="#" class="resource-item"><span class="res-icon pdf">📄</span> Topic 2a Stress</a>
-                    <a href="#" class="resource-item"><span class="res-icon pdf">📄</span> Topic 2b Coping with Stress</a>
-                    <a href="#" class="resource-item"><span class="res-icon pdf">📄</span> Updated UAPP3063_T2 Part 1_Stress</a>
-                    <a href="#" class="resource-item"><span class="res-icon folder">📁</span> Tutorial Week 2</a>
-                    <a href="#" class="resource-item"><span class="res-icon word">📝</span> Tutorial Week 2 (Answer)</a>
-                    <a href="#" class="resource-item"><span class="res-icon link">🔗</span> Additional Reading Material (VeryWellMind)</a>
-                    <a href="#" class="resource-item"><span class="res-icon video">▶️</span> Video: HPA Axis (Biological of Stress)</a>
-                    
-                    <div style="margin-top: 15px; padding: 10px; background: #fff8e1; border-radius: 8px; font-size: 13px; border-left: 3px solid #ffcc00;">
-                        <strong>MOH Health Innovation Grant 2025 - Important Updates</strong><br>
-                        Please submit your questions via Slido. Discuss within your team first!
-                    </div>
-                </div>
-            </div>
-
-            <div class="week-section">
-                <div class="week-header">
-                    <span>17 November - 23 November</span>
-                    <span style="font-size: 12px; opacity: 0.6;">Week 3</span>
-                </div>
-                <div class="week-body">
-                    <a href="#" class="resource-item"><span class="res-icon pdf">📄</span> Topic 3a Health Behaviours</a>
-                    <a href="#" class="resource-item"><span class="res-icon pdf">📄</span> Topic 3b Health Promoting and Compromising</a>
-                    <a href="#" class="resource-item"><span class="res-icon folder">📁</span> Tutorial Week 3</a>
-                    <a href="#" class="resource-item"><span class="res-icon video">▶️</span> Video (Trans-Theoretical Model of Behaviour Change)</a>
-                </div>
-            </div>
-
         </main>
 
         <aside class="right-column">
@@ -251,10 +205,8 @@
             <div class="widget-card">
                 <div class="sidebar-header">Upcoming Events</div>
                 <div class="news-item"><strong>Submission: Grant Proposal</strong><span class="news-date">Fri, 12 Dec, 11:59 PM</span></div>
-                <div class="news-item"><strong>Final Exam Briefing</strong><span class="news-date">Mon, 15 Dec, 2:00 PM</span></div>
             </div>
         </aside>
-
     </div>
 
     <div id="generic-modal" class="modal-overlay">
@@ -265,8 +217,7 @@
                 </div>
                 <span class="window-title" id="modal-title">Window</span>
             </div>
-            <div class="mac-body" id="modal-content">
-                </div>
+            <div class="mac-body" id="modal-content"></div>
         </div>
     </div>
 
@@ -274,38 +225,65 @@
     <script>
         const modalData = {
             'participants': `
-                <table class="modal-table">
-                    <thead><tr><th>User picture</th><th>Name</th><th>City/Town</th><th>Last Access</th></tr></thead>
-                    <tbody>
-                        <tr><td><div class="user-pic" style="background:#FF9500"></div></td><td><b>Alice Wong</b></td><td>Ipoh</td><td>2 mins ago</td></tr>
-                        <tr><td><div class="user-pic" style="background:#007AFF"></div></td><td><b>Brandon Lee</b></td><td>Kampar</td><td>15 mins ago</td></tr>
-                        <tr><td><div class="user-pic" style="background:#34C759"></div></td><td><b>Charlie Tan</b></td><td>KL</td><td>1 hour ago</td></tr>
-                        <tr><td><div class="user-pic" style="background:#AF52DE"></div></td><td><b>David Kumar</b></td><td>Penang</td><td>3 hours ago</td></tr>
-                        <tr><td><div class="user-pic" style="background:#FF3B30"></div></td><td><b>Eva Lim</b></td><td>Johor</td><td>Yesterday</td></tr>
-                    </tbody>
-                </table>
+                <div style="padding: 20px;">
+                    <h3 style="margin-bottom: 15px;">All participants: 114</h3>
+                    <table class="modal-table">
+                        <thead><tr><th>User picture</th><th>Name</th><th>City/town</th><th>Country</th><th>Last access</th></tr></thead>
+                        <tbody>
+                            <tr><td><div class="user-pic" style="background:#007AFF">AB</div></td><td><a href="#" style="color:#007AFF;font-weight:600;">AB TEST USER</a></td><td>Port Dickson</td><td>Malaysia</td><td>now</td></tr>
+                            <tr><td><div class="user-pic" style="background:#FF9500">TL</div></td><td><a href="#" style="color:#007AFF;font-weight:600;">TIMMY LOOI TIAN MING</a></td><td>Ipoh</td><td>Malaysia</td><td>4 hours 36 mins</td></tr>
+                            <tr><td><div class="user-pic" style="background:#34C759">LJ</div></td><td><a href="#" style="color:#007AFF;font-weight:600;">LEE JIA YUN</a></td><td>Kampar</td><td>Malaysia</td><td>5 hours 34 mins</td></tr>
+                            <tr><td><div class="user-pic" style="background:#AF52DE">ET</div></td><td><a href="#" style="color:#007AFF;font-weight:600;">ELVIS TING FANG YUAN</a></td><td>Kuching</td><td>Malaysia</td><td>6 hours 3 mins</td></tr>
+                            <tr><td><div class="user-pic" style="background:#FF3B30">CY</div></td><td><a href="#" style="color:#007AFF;font-weight:600;">CHEAH YI THONG</a></td><td>Penang</td><td>Malaysia</td><td>8 hours 43 mins</td></tr>
+                        </tbody>
+                    </table>
+                </div>
             `,
             'grades': `
-                <div style="padding:20px;">
-                    <h3 style="margin-bottom:15px;">User Report - LEE KELL WIN</h3>
-                    <table class="modal-table" style="border:1px solid #eee;">
-                        <thead><tr style="background:#e0e0e0;"><th>Grade Item</th><th>Grade</th><th>Range</th><th>Percentage</th></tr></thead>
+                <div style="padding:30px;">
+                    <h2 style="font-size:20px; margin-bottom:20px;">User report - AB TEST USER</h2>
+                    <table class="modal-table" style="border:1px solid #ccc;">
+                        <thead>
+                            <tr style="background:#e0e0e0;"><th>Grade item</th><th>Grade</th><th>Range</th><th>Percentage</th><th>Feedback</th></tr>
+                        </thead>
                         <tbody>
-                            <tr><td>Presentation Slide and Marking Rubrics</td><td>85.00</td><td>0-100</td><td>85%</td></tr>
-                            <tr><td>Assignment Submission</td><td>-</td><td>0-100</td><td>-</td></tr>
-                            <tr style="font-weight:bold; background:#f9f9f9; border-top:2px solid #ccc;"><td>Course Total</td><td>-</td><td>0-100</td><td>-</td></tr>
+                            <tr style="background:#FFF8E1;">
+                                <td colspan="5" style="font-weight:bold; color:#d35400;">UAPP3063 HEALTH PSYCHOLOGY [3.00][L][T]</td>
+                            </tr>
+                            <tr><td>Presentation Slide and Marking Rubrics</td><td>-</td><td>0.00–100.00</td><td>-</td><td></td></tr>
+                            <tr><td>Assignment submission</td><td>-</td><td>0.00–100.00</td><td>-</td><td></td></tr>
+                            <tr style="font-weight:bold; background:#f5f5f5; border-top:2px solid #aaa;">
+                                <td>Course total</td><td>-</td><td>0.00–100.00</td><td>-</td><td></td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>
             `,
             'assignments': `
-                <table class="modal-table">
-                    <thead><tr><th>Week</th><th>Name</th><th>Assignment Type</th><th>Due Date</th><th>Status</th></tr></thead>
-                    <tbody>
-                        <tr><td>5</td><td style="color:#007AFF; font-weight:600;">Assignment Submission</td><td>Upload a single file</td><td>Tue, 2 Dec 2025, 12:00 PM</td><td><span style="color:red">No attempt</span></td></tr>
-                        <tr><td>6</td><td style="color:#007AFF; font-weight:600;">Presentation Slide</td><td>Upload a single file</td><td>Thu, 11 Dec 2025, 05:00 PM</td><td><span style="color:green">Submitted</span></td></tr>
-                    </tbody>
-                </table>
+                <div style="padding:20px;">
+                    <h3 style="margin-bottom:15px;">Assignments</h3>
+                    <table class="modal-table">
+                        <thead>
+                            <tr><th style="width:50px;">Week</th><th>Name</th><th>Assignment type</th><th>Due date</th><th>Submitted</th><th>Grade</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>5</td>
+                                <td><a href="#" style="color:#007AFF; font-weight:600;">Assignment submission</a></td>
+                                <td>Upload a single file</td>
+                                <td>Tuesday, 2 December 2025, 12:00 PM</td>
+                                <td>-</td><td>-</td>
+                            </tr>
+                            <tr>
+                                <td>6</td>
+                                <td><a href="#" style="color:#007AFF; font-weight:600;">Presentation Slide and Marking Rubrics</a></td>
+                                <td>Upload a single file</td>
+                                <td>Thursday, 11 December 2025, 05:00 PM</td>
+                                <td>-</td><td>-</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             `
         };
 
@@ -317,8 +295,8 @@
             title.innerText = type.charAt(0).toUpperCase() + type.slice(1);
             content.innerHTML = modalData[type] || '<div style="padding:20px">Content not found.</div>';
             
-            modal.style.display = 'flex'; // First display flex
-            setTimeout(() => modal.classList.add('open'), 10); // Then animate opacity
+            modal.style.display = 'flex';
+            setTimeout(() => modal.classList.add('open'), 10);
         }
 
         function closeModal() {
