@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UTAR WBLE | Dashboard</title>
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <link rel="icon" href="assets/img/logo-placeholder.png">
+    <style>
+        /* --- WBLE DASHBOARD LAYOUT --- */
+        .wble-layout {
+            display: grid;
+            grid-template-columns: 260px 1fr 300px; /* Left Sidebar | Main | Right Widgets */
+            gap: 30px;
+            max-width: 1600px;
+            margin: 30px auto;
+            padding: 0 30px;
+        }
+
+        /* --- LEFT SIDEBAR (Quick Links) --- */
+        .wble-sidebar-title {
+            font-size: 12px; font-weight: 700; text-transform: uppercase; 
+            color: #86868b; margin-bottom: 15px; letter-spacing: 1px;
+        }
+        .wble-nav-item {
+            display: flex; align-items: center; gap: 10px;
+            padding: 12px 15px; margin-bottom: 8px;
+            background: rgba(255,255,255,0.5); border-radius: 10px;
+            color: #1d1d1f; font-size: 14px; font-weight: 500;
+            transition: all 0.2s; text-decoration: none;
+        }
+        .wble-nav-item:hover, .wble-nav-item.active {
+            background: white; color: #007AFF; box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+        .wble-nav-item .icon { font-size: 18px; width: 24px; text-align: center; }
+
+        /* --- MAIN CONTENT (Courses) --- */
+        .wble-banner {
+            background: linear-gradient(to right, rgba(255,255,255,0.8), rgba(240, 248, 255, 0.8));
+            padding: 25px; border-radius: 16px; margin-bottom: 30px;
+            border: 1px solid rgba(255,255,255,0.6);
+            display: flex; align-items: flex-start; gap: 20px;
+        }
+        .wble-banner .icon-box {
+            width: 50px; height: 50px; background: #007AFF; border-radius: 12px;
+            display: flex; align-items: center; justify-content: center; color: white; font-size: 24px;
+        }
+
+        .course-grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); 
+            gap: 20px; 
+        }
+        
+        .course-card {
+            background: rgba(255,255,255,0.65); backdrop-filter: blur(10px);
+            border-radius: 16px; overflow: hidden; border: 1px solid rgba(255,255,255,0.5);
+            transition: transform 0.2s, box-shadow 0.2s; display: flex; flex-direction: column;
+        }
+        .course-card:hover { transform: translateY(-5px); box-shadow: 0 15px 30px rgba(0,0,0,0.1); background: white; }
+        
+        .course-header {
+            height: 100px; padding: 20px;
+            background: linear-gradient(135deg, #007AFF, #5AC8FA);
+            color: white; position: relative;
+        }
+        .course-header.orange { background: linear-gradient(135deg, #FF9500, #FFCC00); }
+        .course-header.green { background: linear-gradient(135deg, #34C759, #30D158); }
+        .course-header.purple { background: linear-gradient(135deg, #AF52DE, #BF5AF2); }
+        .course-header.gray { background: linear-gradient(135deg, #8E8E93, #AEAEB2); }
+
+        .course-code { font-size: 11px; font-weight: 700; opacity: 0.9; text-transform: uppercase; letter-spacing: 0.5px; }
+        .course-body { padding: 15px 20px 20px; flex: 1; display: flex; flex-direction: column; }
+        .course-title { font-size: 15px; font-weight: 700; color: #1d1d1f; margin-bottom: 5px; line-height: 1.4; }
+        .course-meta { font-size: 12px; color: #86868b; margin-top: auto; padding-top: 15px; border-top: 1px dashed rgba(0,0,0,0.1); }
+
+        /* --- RIGHT WIDGETS --- */
+        .widget-card {
+            background: white; border-radius: 16px; padding: 20px; margin-bottom: 25px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.03); border: 1px solid rgba(0,0,0,0.05);
+        }
+        .widget-title { font-size: 14px; font-weight: 700; margin-bottom: 15px; color: #1d1d1f; display: flex; justify-content: space-between; align-items: center; }
+        
+        /* Calendar Styles (Mini) */
+        .mini-calendar { width: 100%; text-align: center; font-size: 12px; }
+        .mini-calendar th { color: #86868b; font-weight: 500; padding: 5px 0; }
+        .mini-calendar td { padding: 8px 0; font-weight: 600; color: #333; }
+        .mini-calendar td.today { background: #007AFF; color: white; border-radius: 50%; width: 24px; height: 24px; display: inline-block; line-height: 24px; }
+        .mini-calendar td.dim { color: #ccc; }
+
+        /* User List */
+        .user-list-item { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; font-size: 12px; font-weight: 500; }
+        .user-avatar { width: 28px; height: 28px; background: #eee; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 14px; }
+        .user-status { width: 8px; height: 8px; background: #34c759; border-radius: 50%; margin-left: auto; }
+
+        /* Responsive */
+        @media (max-width: 1200px) { .wble-layout { grid-template-columns: 220px 1fr; } .right-column { display: none; } }
+        @media (max-width: 850px) { .wble-layout { grid-template-columns: 1fr; } .left-column { display: none; } }
+    </style>
+</head>
+<body>
+
+    <div class="background-mesh"></div>
+
+    <header class="glass-nav animate-enter delay-1" style="height: 60px;">
+        <div class="nav-container" style="max-width: 1600px;">
+            <div style="display: flex; align-items: center; gap: 15px;">
+                <img src="assets/img/logo-placeholder.png" alt="UTAR" style="height: 35px;">
+                <div style="height: 25px; width: 1px; background: #ccc;"></div>
+                <span style="font-weight: 700; color: #004080; font-size: 18px;">WBLE <span style="font-weight:400; font-size:14px; color:#666;">Kampar Campus</span></span>
+            </div>
+            <div class="nav-user">
+                <span class="user-name">Mr./Mrs./Dr./Prof. STUDENT NAME</span>
+                <a href="wble_login.html" class="btn-logout">Logout</a>
+            </div>
+        </div>
+    </header>
+
+    <div class="wble-layout animate-enter delay-2">
+        
+        <aside class="left-column">
+            <div class="wble-sidebar-title">Main Menu</div>
+            <a href="#" class="wble-nav-item active"><span class="icon">🏠</span> Dashboard</a>
+            <a href="#" class="wble-nav-item"><span class="icon">📅</span> My Calendar</a>
+            <a href="#" class="wble-nav-item"><span class="icon">📂</span> Private Files</a>
+            
+            <div class="wble-sidebar-title" style="margin-top: 30px;">Quick Links</div>
+            <a href="#" class="wble-nav-item"><span class="icon">📖</span> Library</a>
+            <a href="#" class="wble-nav-item"><span class="icon">🎓</span> Student Portal</a>
+            <a href="#" class="wble-nav-item"><span class="icon">📧</span> UTAR Email</a>
+        </aside>
+
+        <main>
+            <div class="wble-banner">
+                <div class="icon-box">📢</div>
+                <div>
+                    <h3 style="font-size: 16px; margin-bottom: 5px;">UTAR Student Survey</h3>
+                    <p style="font-size: 13px; color: #555; line-height: 1.5;">
+                        UTAR Student Survey to be conducted within <strong>24 Nov 2025 - 28 Dec 2025</strong>.<br>
+                        On your faculty's specific survey period, please refer to your faculty schedule.
+                    </p>
+                </div>
+            </div>
+
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                <h2 style="font-size: 20px;">My Courses</h2>
+                <span style="font-size: 12px; color: #888;">Session 202510</span>
+            </div>
+
+            <div class="course-grid">
+                
+                <div class="course-card">
+                    <div class="course-header green">
+                        <div class="course-code">UAPP3063</div>
+                    </div>
+                    <div class="course-body">
+                        <div class="course-title">HEALTH PSYCHOLOGY</div>
+                        <div class="course-meta">Jan 2026 Session</div>
+                    </div>
+                </div>
+
+                <div class="course-card">
+                    <div class="course-header orange">
+                        <div class="course-code">UAPP3074</div>
+                    </div>
+                    <div class="course-body">
+                        <div class="course-title">CONTEMPORARY ISSUES IN PSYCHOLOGY</div>
+                        <div class="course-meta">Jan 2026 Session</div>
+                    </div>
+                </div>
+
+                <div class="course-card">
+                    <div class="course-header gray">
+                        <div class="course-code">UACC3006</div>
+                    </div>
+                    <div class="course-body">
+                        <div class="course-title">INDUSTRIAL TRAINING</div>
+                        <div class="course-meta">202510 (Oct 2025)</div>
+                    </div>
+                </div>
+
+                <div class="course-card">
+                    <div class="course-header purple">
+                        <div class="course-code">UAPZ3013 / UAPZ3023</div>
+                    </div>
+                    <div class="course-body">
+                        <div class="course-title">FINAL YEAR PROJECT I / II</div>
+                        <div class="course-meta">Jan 2026 Session</div>
+                    </div>
+                </div>
+
+                <div class="course-card">
+                    <div class="course-header">
+                        <div class="course-code">LIBRARY</div>
+                    </div>
+                    <div class="course-body">
+                        <div class="course-title">INFORMATION SKILLS PROGRAMME</div>
+                        <div class="course-meta">General</div>
+                    </div>
+                </div>
+
+                <div class="course-card">
+                    <div class="course-header">
+                        <div class="course-code">LANG</div>
+                    </div>
+                    <div class="course-body">
+                        <div class="course-title">INTERNET ENGLISH</div>
+                        <div class="course-meta">General Resource</div>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+
+        <aside class="right-column">
+            
+            <div class="widget-card">
+                <div class="widget-title">Calendar <span>Jan 2026</span></div>
+                <table class="mini-calendar">
+                    <thead>
+                        <tr><th>Su</th><th>Mo</th><th>Tu</th><th>We</th><th>Th</th><th>Fr</th><th>Sa</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td class="dim">28</td><td class="dim">29</td><td class="dim">30</td><td class="dim">31</td><td>1</td><td class="today">2</td><td>3</td></tr>
+                        <tr><td>4</td><td>5</td><td>6</td><td>7</td><td>8</td><td>9</td><td>10</td></tr>
+                        <tr><td>11</td><td>12</td><td>13</td><td>14</td><td>15</td><td>16</td><td>17</td></tr>
+                        <tr><td>18</td><td>19</td><td>20</td><td>21</td><td>22</td><td>23</td><td>24</td></tr>
+                        <tr><td>25</td><td>26</td><td>27</td><td>28</td><td>29</td><td>30</td><td>31</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="widget-card">
+                <div class="widget-title">Online Users (5 min)</div>
+                
+                <div class="user-list-item">
+                    <div class="user-avatar" style="background:#e3f2fd; color:#007aff;">LK</div>
+                    <span>ALISSA</span> <div class="user-status"></div>
+                </div>
+                <div class="user-list-item">
+                    <div class="user-avatar">LZ</div>
+                    <span>LEE</span> <div class="user-status"></div>
+                </div>
+                <div class="user-list-item">
+                    <div class="user-avatar">CX</div>
+                    <span>JESS</span> <div class="user-status"></div>
+                </div>
+                <div class="user-list-item">
+                    <div class="user-avatar">AW</div>
+                    <span>KENT/span> <div class="user-status"></div>
+                </div>
+                <div class="user-list-item">
+                    <div class="user-avatar">EY</div>
+                    <span>ESTHER</span> <div class="user-status"></div>
+                </div>
+                <div class="user-list-item">
+                    <div class="user-avatar">EL</div>
+                    <span>EDISON</span> <div class="user-status"></div>
+                </div>
+                
+            </div>
+
+        </aside>
+
+    </div>
+
+    <div style="text-align: center; margin-bottom: 30px; opacity: 0.6;">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/c/c6/Moodle-logo.svg" alt="Moodle" style="height: 25px; filter: grayscale(100%);">
+    </div>
+
+    <script src="assets/js/main.js"></script>
+</body>
+</html>
