@@ -77,33 +77,64 @@
         </div>
     </main>
 
-    <script src="assets/js/main.js"></script>
     <script>
-        // Override the main.js redirect for WBLE specifically
         document.addEventListener('DOMContentLoaded', () => {
-            const wbleForm = document.getElementById('loginForm');
-            if(wbleForm) {
-                // Remove old event listener by cloning (simple trick)
-                const newForm = wbleForm.cloneNode(true);
-                wbleForm.parentNode.replaceChild(newForm, wbleForm);
-                
-                // Add WBLE specific logic
-                newForm.addEventListener('submit', (e) => {
-                    e.preventDefault();
-                    // Just a mock success for WBLE
-                    const btn = newForm.querySelector('.btn-primary');
-                    btn.innerText = "Accessing WBLE...";
-                    btn.style.opacity = 0.7;
-                    setTimeout(() => {
-                        alert("Successfully logged into WBLE!");
-                        window.location.href = "home.html"; // Redirects to portal for now
-                    }, 1500);
-                });
-                
-                // Re-attach Recaptcha logic if needed, or rely on main.js if structure matches perfectly
-                // (Note: Since we cloned the node, we lost the main.js events on the form, 
-                // but the Recaptcha click event is on the DIV, which wasn't cloned/replaced, so it persists.)
-            }
+            const form = document.getElementById('loginForm');
+            const recaptcha = document.getElementById('recaptcha-container');
+            const box = document.getElementById('recaptcha-box');
+            const spinner = document.getElementById('recaptcha-spinner');
+            const check = document.getElementById('recaptcha-check');
+            let isVerified = false;
+
+            // 1. Handle Captcha Animation
+            recaptcha.addEventListener('click', () => {
+                if (isVerified) return; // Prevent clicking twice
+
+                // Hide box, show spinner
+                box.style.display = 'none';
+                spinner.style.display = 'block';
+
+                // Simulate network delay (1.2s) -> Show Checkmark
+                setTimeout(() => {
+                    spinner.style.display = 'none';
+                    check.style.display = 'block'; // Ensure CSS has .checkmark { color: green }
+                    check.style.color = '#00A36C'; // Force green color just in case
+                    isVerified = true;
+                }, 1200);
+            });
+
+            // 2. Handle Login Submit
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+
+                const user = document.getElementById('username').value;
+                const pass = document.getElementById('password').value;
+
+                // Simple Validation
+                if (!user || !pass) {
+                    alert("Please enter your username and password.");
+                    return;
+                }
+
+                if (!isVerified) {
+                    alert("Please check the box to prove you are not a robot.");
+                    // Optional: Shake animation on captcha
+                    recaptcha.style.borderColor = "red";
+                    setTimeout(() => recaptcha.style.borderColor = "#d3d3d3", 500);
+                    return;
+                }
+
+                // Success State
+                const btn = form.querySelector('.btn-primary');
+                btn.innerText = "Accessing WBLE...";
+                btn.style.opacity = "0.7";
+                btn.style.cursor = "not-allowed";
+
+                // Redirect to Dashboard
+                setTimeout(() => {
+                    window.location.href = "wble_home.html";
+                }, 1500);
+            });
         });
     </script>
 </body>
