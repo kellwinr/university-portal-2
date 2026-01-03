@@ -23,7 +23,7 @@
         .wble-nav-item:hover, .wble-nav-item.active { background: white; color: #007AFF; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
         .wble-nav-item .icon { font-size: 18px; width: 24px; text-align: center; }
 
-        /* --- MAIN CALENDAR HEADER --- */
+        /* --- MAIN CALENDAR --- */
         .calendar-header {
             display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;
             background: white; padding: 15px 25px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.03);
@@ -31,11 +31,10 @@
         .cal-title { font-size: 20px; font-weight: 700; color: #1d1d1f; }
         .cal-controls { display: flex; gap: 10px; }
         .btn-nav { padding: 8px 12px; border: 1px solid #ddd; border-radius: 6px; background: white; cursor: pointer; font-weight: 600; color: #555; font-size: 14px; transition: all 0.2s; }
-        .btn-nav:hover { background: #f5f5f7; color: #007AFF; }
+        .btn-nav:hover { background: #f5f5f7; color: #007AFF; border-color: #007AFF; color: white; }
         .btn-new-event { background: #007AFF; color: white; border: none; padding: 8px 16px; border-radius: 6px; font-weight: 600; font-size: 13px; cursor: pointer; }
         .btn-new-event:hover { background: #005bb5; }
 
-        /* --- BIG CALENDAR GRID --- */
         .big-calendar {
             display: grid;
             grid-template-columns: repeat(7, 1fr);
@@ -62,15 +61,33 @@
         .cal-cell.other-month { background: #fcfcfc; color: #ccc; }
         .cal-cell.other-month .day-number { color: #ccc; }
 
-        /* --- RIGHT WIDGETS --- */
-        .widget-card { background: white; border-radius: 12px; padding: 20px; margin-bottom: 25px; box-shadow: 0 4px 15px rgba(0,0,0,0.03); }
-        .widget-title { font-size: 14px; font-weight: 700; margin-bottom: 15px; color: #1d1d1f; border-bottom: 1px solid #eee; padding-bottom: 10px;}
-        .event-key-item { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; font-size: 13px; color: #555; }
-        .key-dot { width: 12px; height: 12px; border-radius: 3px; }
+        /* Dynamic Events */
+        .cal-event {
+            font-size: 10px; padding: 4px 8px; border-radius: 4px; margin-bottom: 4px;
+            color: white; font-weight: 600; cursor: pointer; overflow: hidden; 
+            white-space: nowrap; text-overflow: ellipsis; box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        /* Event Colors */
         .evt-global { background: #34C759; }
         .evt-course { background: #FF9500; }
-        .evt-group { background: #FFCC00; }
+        .evt-group { background: #FFCC00; color: #333; }
         .evt-user { background: #007AFF; }
+
+        /* --- RIGHT SIDEBAR WIDGETS --- */
+        .widget-card { background: white; border-radius: 12px; padding: 20px; margin-bottom: 25px; box-shadow: 0 4px 15px rgba(0,0,0,0.03); }
+        .widget-title { font-size: 14px; font-weight: 700; margin-bottom: 15px; color: #1d1d1f; border-bottom: 1px solid #eee; padding-bottom: 10px;}
+        
+        .event-key-item { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; font-size: 13px; color: #555; }
+        .key-dot { width: 12px; height: 12px; border-radius: 3px; }
+
+        /* Mini Stacked Calendars (Sidebar) */
+        .mini-cal-stack { text-align: center; margin-bottom: 20px; }
+        .mini-cal-title { font-weight: 700; font-size: 13px; color: #007AFF; margin-bottom: 5px; text-transform: uppercase; letter-spacing: 0.5px; }
+        .mini-table { width: 100%; font-size: 10px; margin-bottom: 15px; border-collapse: collapse; }
+        .mini-table th { color: #888; font-weight: 400; padding: 2px 0; }
+        .mini-table td { padding: 4px 0; color: #333; font-weight: 600; }
+        .mini-table .curr-day-mini { background: #007AFF; color: white; border-radius: 50%; width: 20px; height: 20px; display: inline-flex; align-items: center; justify-content: center; }
+        .mini-table .has-event { color: #FF9500; font-weight: 800; }
 
         @media (max-width: 1200px) { .wble-layout { grid-template-columns: 200px 1fr; } .right-column { display: none; } }
         @media (max-width: 850px) { .wble-layout { grid-template-columns: 1fr; } .left-column { display: none; } }
@@ -110,11 +127,11 @@
 
         <main>
             <div class="calendar-header">
-                <div class="cal-title" id="calTitle">January 2026</div>
+                <div class="cal-title" id="calTitle">...</div>
                 <div class="cal-controls">
                     <button class="btn-nav" onclick="changeMonth(-1)">◀ Prev</button>
                     <button class="btn-nav" onclick="changeMonth(1)">Next ▶</button>
-                    <button class="btn-new-event">+ New Event</button>
+                    <button class="btn-new-event" onclick="alert('Create Event Mockup')">+ New Event</button>
                 </div>
             </div>
 
@@ -128,6 +145,7 @@
         </main>
 
         <aside class="right-column">
+            
             <div class="widget-card">
                 <div class="widget-title">Events Key</div>
                 <div class="event-key-item"><div class="key-dot evt-global"></div> Global</div>
@@ -135,77 +153,154 @@
                 <div class="event-key-item"><div class="key-dot evt-course"></div> Course</div>
                 <div class="event-key-item"><div class="key-dot evt-user"></div> User</div>
             </div>
+
+            <div class="widget-card">
+                <div class="widget-title">Monthly View</div>
+                <div id="miniCalendarContainer">
+                    </div>
+            </div>
+
         </aside>
 
     </div>
 
     <script src="assets/js/main.js"></script>
     <script>
-        let currentDate = new Date(); // Start with today's date
+        let currentDate = new Date(); 
+
+        // --- MOCK EVENTS DATABASE ---
+        // Format: "Month-Day": { title, type }
+        // Note: Months are 0-indexed (Jan=0, Dec=11)
+        const eventsDB = {
+            "0-1":  [{ title: "New Year's Day", type: "evt-global" }],
+            "0-12": [{ title: "Grant Proposal Due", type: "evt-course" }],
+            "0-15": [{ title: "Exam Briefing", type: "evt-group" }],
+            "0-20": [{ title: "Assignment 1", type: "evt-user" }],
+            "1-5":  [{ title: "Thaipusam", type: "evt-global" }],
+            "1-14": [{ title: "Valentine's Day", type: "evt-user" }]
+        };
 
         document.addEventListener('DOMContentLoaded', () => {
-            renderCalendar(currentDate);
+            renderFullPage(currentDate);
         });
 
         function changeMonth(offset) {
             currentDate.setMonth(currentDate.getMonth() + offset);
-            renderCalendar(currentDate);
+            renderFullPage(currentDate);
         }
 
-        function renderCalendar(date) {
+        function renderFullPage(date) {
+            renderBigCalendar(date);
+            renderMiniCalendars(date);
+        }
+
+        // --- 1. RENDER BIG CALENDAR ---
+        function renderBigCalendar(date) {
             const year = date.getFullYear();
             const month = date.getMonth();
-            const today = new Date(); // Real today for highlighting
+            const today = new Date();
 
-            // Update Title
             const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
             document.getElementById('calTitle').innerText = `${monthNames[month]} ${year}`;
 
             const grid = document.getElementById('calendarGrid');
-            grid.innerHTML = ''; // Clear old content
+            grid.innerHTML = ''; 
 
-            // Add Headers
             const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-            days.forEach(d => {
-                grid.innerHTML += `<div class="cal-day-header">${d}</div>`;
-            });
+            days.forEach(d => grid.innerHTML += `<div class="cal-day-header">${d}</div>`);
 
-            // Calculate Dates
             const firstDayIndex = new Date(year, month, 1).getDay();
             const lastDay = new Date(year, month + 1, 0).getDate();
             const prevLastDay = new Date(year, month, 0).getDate();
 
-            // Previous Month Padding
+            // Previous Month
             for (let x = firstDayIndex; x > 0; x--) {
-                grid.innerHTML += `
-                    <div class="cal-cell other-month">
-                        <div class="day-number">${prevLastDay - x + 1}</div>
-                    </div>`;
+                grid.innerHTML += `<div class="cal-cell other-month"><div class="day-number">${prevLastDay - x + 1}</div></div>`;
             }
 
-            // Current Month Days
+            // Current Month
             for (let i = 1; i <= lastDay; i++) {
-                // Check if it's "Today"
-                let isToday = (
-                    i === today.getDate() && 
-                    month === today.getMonth() && 
-                    year === today.getFullYear()
-                ) ? 'today' : '';
+                let isToday = (i === today.getDate() && month === today.getMonth() && year === today.getFullYear()) ? 'today' : '';
+                
+                // Check for Events
+                let eventHTML = "";
+                let key = `${month}-${i}`;
+                if(eventsDB[key]) {
+                    eventsDB[key].forEach(evt => {
+                        eventHTML += `<div class="cal-event ${evt.type}">${evt.title}</div>`;
+                    });
+                }
 
                 grid.innerHTML += `
                     <div class="cal-cell ${isToday}">
                         <div class="day-number">${i}</div>
+                        ${eventHTML}
                     </div>`;
             }
 
-            // Next Month Padding (to fill grid)
-            const remainingCells = 42 - (firstDayIndex + lastDay); // 6 rows * 7 cols = 42
+            // Next Month Padding
+            const totalCells = firstDayIndex + lastDay;
+            const rows = Math.ceil(totalCells / 7);
+            const remainingCells = (rows * 7) - totalCells;
+            
             for (let j = 1; j <= remainingCells; j++) {
-                grid.innerHTML += `
-                    <div class="cal-cell other-month">
-                        <div class="day-number">${j}</div>
-                    </div>`;
+                grid.innerHTML += `<div class="cal-cell other-month"><div class="day-number">${j}</div></div>`;
             }
+        }
+
+        // --- 2. RENDER SIDEBAR MINI CALENDARS (Prev, Curr, Next) ---
+        function renderMiniCalendars(centerDate) {
+            const container = document.getElementById('miniCalendarContainer');
+            container.innerHTML = '';
+
+            // Generate -1, 0, +1 months
+            for (let i = -1; i <= 1; i++) {
+                let tempDate = new Date(centerDate.getFullYear(), centerDate.getMonth() + i, 1);
+                container.innerHTML += generateMiniTable(tempDate);
+            }
+        }
+
+        function generateMiniTable(date) {
+            const year = date.getFullYear();
+            const month = date.getMonth();
+            const today = new Date();
+            const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+
+            let html = `<div class="mini-cal-stack"><div class="mini-cal-title">${monthNames[month]} ${year}</div><table class="mini-table">
+                        <tr><th>S</th><th>M</th><th>T</th><th>W</th><th>T</th><th>F</th><th>S</th></tr><tr>`;
+
+            const firstDayIndex = new Date(year, month, 1).getDay();
+            const lastDay = new Date(year, month + 1, 0).getDate();
+
+            let day = 1;
+            // Rows
+            for (let i = 0; i < 6; i++) {
+                // Cols
+                for (let j = 0; j < 7; j++) {
+                    if (i === 0 && j < firstDayIndex) {
+                        html += `<td></td>`;
+                    } else if (day > lastDay) {
+                        html += `<td></td>`;
+                    } else {
+                        let classStr = "";
+                        if (day === today.getDate() && month === today.getMonth() && year === today.getFullYear()) {
+                            classStr = 'class="curr-day-mini"';
+                        }
+                        // Check if event exists for mini cal highlight
+                        if(eventsDB[`${month}-${day}`]) {
+                            classStr = 'class="has-event"';
+                        }
+                        
+                        html += `<td><span ${classStr}>${day}</span></td>`;
+                        day++;
+                    }
+                }
+                html += `</tr>`;
+                if (day > lastDay) break;
+                html += `<tr>`;
+            }
+            html += `</table></div>`;
+            return html;
         }
     </script>
 </body>
