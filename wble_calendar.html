@@ -17,7 +17,7 @@
             padding: 0 30px;
         }
 
-        /* --- SIDEBAR STYLES (Reused) --- */
+        /* --- SIDEBAR STYLES --- */
         .wble-sidebar-title { font-size: 12px; font-weight: 700; text-transform: uppercase; color: #86868b; margin-bottom: 15px; letter-spacing: 1px; }
         .wble-nav-item { display: flex; align-items: center; gap: 10px; padding: 12px 15px; margin-bottom: 8px; background: rgba(255,255,255,0.5); border-radius: 10px; color: #1d1d1f; font-size: 14px; font-weight: 500; transition: all 0.2s; text-decoration: none; }
         .wble-nav-item:hover, .wble-nav-item.active { background: white; color: #007AFF; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
@@ -50,7 +50,7 @@
             min-height: 120px; padding: 10px; border-right: 1px solid #f0f0f0; border-bottom: 1px solid #f0f0f0;
             position: relative; transition: background 0.1s;
         }
-        .cal-cell:nth-child(7n) { border-right: none; } /* Remove border on last column */
+        .cal-cell:nth-child(7n) { border-right: none; }
         .cal-cell:hover { background: #f9f9f9; }
         
         .day-number { font-size: 14px; font-weight: 600; color: #333; margin-bottom: 5px; }
@@ -62,30 +62,15 @@
         .cal-cell.other-month { background: #fcfcfc; color: #ccc; }
         .cal-cell.other-month .day-number { color: #ccc; }
 
-        /* --- EVENTS IN CALENDAR --- */
-        .cal-event {
-            font-size: 11px; padding: 4px 8px; border-radius: 4px; margin-bottom: 4px;
-            color: white; font-weight: 600; cursor: pointer; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;
-        }
-        .evt-global { background: #34C759; }
-        .evt-course { background: #FF9500; }
-        .evt-group { background: #FFCC00; color: #333; }
-        .evt-user { background: #007AFF; }
-
         /* --- RIGHT WIDGETS --- */
         .widget-card { background: white; border-radius: 12px; padding: 20px; margin-bottom: 25px; box-shadow: 0 4px 15px rgba(0,0,0,0.03); }
         .widget-title { font-size: 14px; font-weight: 700; margin-bottom: 15px; color: #1d1d1f; border-bottom: 1px solid #eee; padding-bottom: 10px;}
-        
         .event-key-item { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; font-size: 13px; color: #555; }
         .key-dot { width: 12px; height: 12px; border-radius: 3px; }
-
-        /* Mini Stacked Calendars */
-        .mini-cal-stack { text-align: center; margin-bottom: 20px; }
-        .mini-cal-title { font-weight: 700; font-size: 13px; color: #007AFF; margin-bottom: 5px; }
-        .mini-table { width: 100%; font-size: 11px; margin-bottom: 15px; }
-        .mini-table th { color: #888; font-weight: 400; }
-        .mini-table td { padding: 4px 0; color: #333; font-weight: 600; }
-        .mini-table .curr-day { background: #007AFF; color: white; border-radius: 4px; padding: 2px 5px; }
+        .evt-global { background: #34C759; }
+        .evt-course { background: #FF9500; }
+        .evt-group { background: #FFCC00; }
+        .evt-user { background: #007AFF; }
 
         @media (max-width: 1200px) { .wble-layout { grid-template-columns: 200px 1fr; } .right-column { display: none; } }
         @media (max-width: 850px) { .wble-layout { grid-template-columns: 1fr; } .left-column { display: none; } }
@@ -125,58 +110,16 @@
 
         <main>
             <div class="calendar-header">
-                <div class="cal-title">January 2026</div>
+                <div class="cal-title" id="calTitle">January 2026</div>
                 <div class="cal-controls">
-                    <button class="btn-nav">◀ Dec 2025</button>
-                    <button class="btn-nav">Feb 2026 ▶</button>
+                    <button class="btn-nav" onclick="changeMonth(-1)">◀ Prev</button>
+                    <button class="btn-nav" onclick="changeMonth(1)">Next ▶</button>
                     <button class="btn-new-event">+ New Event</button>
                 </div>
             </div>
 
-            <div class="big-calendar">
-                <div class="cal-day-header">Sun</div><div class="cal-day-header">Mon</div><div class="cal-day-header">Tue</div>
-                <div class="cal-day-header">Wed</div><div class="cal-day-header">Thu</div><div class="cal-day-header">Fri</div><div class="cal-day-header">Sat</div>
-
-                <div class="cal-cell other-month"><div class="day-number">28</div></div>
-                <div class="cal-cell other-month"><div class="day-number">29</div></div>
-                <div class="cal-cell other-month"><div class="day-number">30</div></div>
-                <div class="cal-cell other-month"><div class="day-number">31</div></div>
-                <div class="cal-cell"><div class="day-number">1</div><div class="cal-event evt-global">New Year's Day</div></div>
-                <div class="cal-cell today"><div class="day-number">2</div></div>
-                <div class="cal-cell"><div class="day-number">3</div></div>
-
-                <div class="cal-cell"><div class="day-number">4</div></div>
-                <div class="cal-cell"><div class="day-number">5</div></div>
-                <div class="cal-cell"><div class="day-number">6</div></div>
-                <div class="cal-cell"><div class="day-number">7</div></div>
-                <div class="cal-cell"><div class="day-number">8</div></div>
-                <div class="cal-cell"><div class="day-number">9</div></div>
-                <div class="cal-cell"><div class="day-number">10</div></div>
-
-                <div class="cal-cell"><div class="day-number">11</div></div>
-                <div class="cal-cell"><div class="day-number">12</div><div class="cal-event evt-course">Grant Proposal Due</div></div>
-                <div class="cal-cell"><div class="day-number">13</div></div>
-                <div class="cal-cell"><div class="day-number">14</div></div>
-                <div class="cal-cell"><div class="day-number">15</div><div class="cal-event evt-group">Exam Briefing</div></div>
-                <div class="cal-cell"><div class="day-number">16</div></div>
-                <div class="cal-cell"><div class="day-number">17</div></div>
-
-                <div class="cal-cell"><div class="day-number">18</div></div>
-                <div class="cal-cell"><div class="day-number">19</div></div>
-                <div class="cal-cell"><div class="day-number">20</div></div>
-                <div class="cal-cell"><div class="day-number">21</div></div>
-                <div class="cal-cell"><div class="day-number">22</div></div>
-                <div class="cal-cell"><div class="day-number">23</div></div>
-                <div class="cal-cell"><div class="day-number">24</div></div>
-
-                <div class="cal-cell"><div class="day-number">25</div></div>
-                <div class="cal-cell"><div class="day-number">26</div></div>
-                <div class="cal-cell"><div class="day-number">27</div></div>
-                <div class="cal-cell"><div class="day-number">28</div></div>
-                <div class="cal-cell"><div class="day-number">29</div></div>
-                <div class="cal-cell"><div class="day-number">30</div></div>
-                <div class="cal-cell"><div class="day-number">31</div></div>
-            </div>
+            <div class="big-calendar" id="calendarGrid">
+                </div>
             
             <div style="margin-top: 20px; text-align: center;">
                 <button class="btn-nav">Export Calendar</button>
@@ -185,7 +128,6 @@
         </main>
 
         <aside class="right-column">
-            
             <div class="widget-card">
                 <div class="widget-title">Events Key</div>
                 <div class="event-key-item"><div class="key-dot evt-global"></div> Global</div>
@@ -193,40 +135,78 @@
                 <div class="event-key-item"><div class="key-dot evt-course"></div> Course</div>
                 <div class="event-key-item"><div class="key-dot evt-user"></div> User</div>
             </div>
-
-            <div class="widget-card">
-                <div class="widget-title">Monthly View</div>
-                
-                <div class="mini-cal-stack">
-                    <div class="mini-cal-title">December 2025</div>
-                    <table class="mini-table">
-                        <tr><th>S</th><th>M</th><th>T</th><th>W</th><th>T</th><th>F</th><th>S</th></tr>
-                        <tr><td></td><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td><td>6</td></tr>
-                        <tr><td>7</td><td>8</td><td>9</td><td>10</td><td>11</td><td>12</td><td>13</td></tr>
-                        <tr><td>14</td><td>15</td><td>16</td><td>17</td><td>18</td><td>19</td><td>20</td></tr>
-                        <tr><td>21</td><td>22</td><td>23</td><td>24</td><td>25</td><td>26</td><td>27</td></tr>
-                        <tr><td>28</td><td>29</td><td>30</td><td>31</td><td></td><td></td><td></td></tr>
-                    </table>
-                </div>
-
-                <div class="mini-cal-stack">
-                    <div class="mini-cal-title">January 2026</div>
-                    <table class="mini-table">
-                        <tr><th>S</th><th>M</th><th>T</th><th>W</th><th>T</th><th>F</th><th>S</th></tr>
-                        <tr><td></td><td></td><td></td><td></td><td>1</td><td class="curr-day">2</td><td>3</td></tr>
-                        <tr><td>4</td><td>5</td><td>6</td><td>7</td><td>8</td><td>9</td><td>10</td></tr>
-                        <tr><td>11</td><td>12</td><td>13</td><td>14</td><td>15</td><td>16</td><td>17</td></tr>
-                        <tr><td>18</td><td>19</td><td>20</td><td>21</td><td>22</td><td>23</td><td>24</td></tr>
-                        <tr><td>25</td><td>26</td><td>27</td><td>28</td><td>29</td><td>30</td><td>31</td></tr>
-                    </table>
-                </div>
-
-            </div>
-
         </aside>
 
     </div>
 
     <script src="assets/js/main.js"></script>
+    <script>
+        let currentDate = new Date(); // Start with today's date
+
+        document.addEventListener('DOMContentLoaded', () => {
+            renderCalendar(currentDate);
+        });
+
+        function changeMonth(offset) {
+            currentDate.setMonth(currentDate.getMonth() + offset);
+            renderCalendar(currentDate);
+        }
+
+        function renderCalendar(date) {
+            const year = date.getFullYear();
+            const month = date.getMonth();
+            const today = new Date(); // Real today for highlighting
+
+            // Update Title
+            const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+            document.getElementById('calTitle').innerText = `${monthNames[month]} ${year}`;
+
+            const grid = document.getElementById('calendarGrid');
+            grid.innerHTML = ''; // Clear old content
+
+            // Add Headers
+            const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+            days.forEach(d => {
+                grid.innerHTML += `<div class="cal-day-header">${d}</div>`;
+            });
+
+            // Calculate Dates
+            const firstDayIndex = new Date(year, month, 1).getDay();
+            const lastDay = new Date(year, month + 1, 0).getDate();
+            const prevLastDay = new Date(year, month, 0).getDate();
+
+            // Previous Month Padding
+            for (let x = firstDayIndex; x > 0; x--) {
+                grid.innerHTML += `
+                    <div class="cal-cell other-month">
+                        <div class="day-number">${prevLastDay - x + 1}</div>
+                    </div>`;
+            }
+
+            // Current Month Days
+            for (let i = 1; i <= lastDay; i++) {
+                // Check if it's "Today"
+                let isToday = (
+                    i === today.getDate() && 
+                    month === today.getMonth() && 
+                    year === today.getFullYear()
+                ) ? 'today' : '';
+
+                grid.innerHTML += `
+                    <div class="cal-cell ${isToday}">
+                        <div class="day-number">${i}</div>
+                    </div>`;
+            }
+
+            // Next Month Padding (to fill grid)
+            const remainingCells = 42 - (firstDayIndex + lastDay); // 6 rows * 7 cols = 42
+            for (let j = 1; j <= remainingCells; j++) {
+                grid.innerHTML += `
+                    <div class="cal-cell other-month">
+                        <div class="day-number">${j}</div>
+                    </div>`;
+            }
+        }
+    </script>
 </body>
 </html>
