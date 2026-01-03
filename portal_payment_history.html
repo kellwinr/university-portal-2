@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UTAR Portal | Payment History</title>
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <link rel="icon" href="assets/img/logo-placeholder.png">
+    <style>
+        /* --- TABLE STYLES --- */
+        .history-table-container {
+            overflow-x: auto;
+            border-radius: 12px;
+            background: white;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .history-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+            min-width: 1000px; /* Ensures table doesn't squash on small screens */
+        }
+
+        .history-table th {
+            background: #f1f3f5;
+            color: #555;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            padding: 15px;
+            text-align: left;
+            border-bottom: 2px solid #e0e0e0;
+            white-space: nowrap;
+        }
+
+        .history-table td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #eee;
+            color: #333;
+            vertical-align: middle;
+        }
+
+        .history-table tr:hover {
+            background: #f9faff;
+        }
+
+        /* Column Specifics */
+        .col-session { font-weight: 600; color: #004080; }
+        .col-amount { font-family: monospace; font-weight: 700; color: #333; }
+        .col-ref { font-family: monospace; color: #666; font-size: 12px; }
+        
+        /* Badges */
+        .badge-payment {
+            background: #FFCC00;
+            color: #333;
+            font-size: 11px;
+            font-weight: 700;
+            padding: 3px 8px;
+            border-radius: 4px;
+            text-transform: uppercase;
+            display: inline-block;
+        }
+
+        .pdf-link {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            color: #004080;
+            text-decoration: none;
+            font-weight: 500;
+            transition: opacity 0.2s;
+        }
+        .pdf-link:hover { opacity: 0.7; text-decoration: underline; }
+        .pdf-icon { color: #d62d2d; font-size: 16px; }
+
+        /* Receipt Column */
+        .receipt-cell { text-align: center; }
+        .btn-receipt {
+            background: none; border: none; cursor: pointer;
+            color: #d62d2d; font-weight: 600; font-size: 12px;
+            display: flex; flex-direction: column; align-items: center; gap: 2px;
+        }
+        .btn-receipt:hover { color: #b91c1c; }
+
+        /* Info Box */
+        .info-box {
+            background: rgba(255, 255, 255, 0.7);
+            border-left: 4px solid #007AFF;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+            display: flex; gap: 10px; align-items: flex-start;
+            font-size: 13px; line-height: 1.5; color: #444;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="background-mesh"></div>
+
+    <header class="glass-nav animate-enter delay-1">
+        <div class="nav-container">
+            <a href="home.html" class="nav-logo">
+                <img src="assets/img/logo-placeholder.png" alt="UTAR">
+                <span>Portal</span>
+            </a>
+            <nav class="nav-links">
+                <a href="home.html" class="nav-link">Home</a>
+                <div class="nav-dropdown">
+                    <a href="#" class="nav-link dropdown-trigger">Menu ▾</a>
+                    <div class="dropdown-menu glass-card">
+                        <a href="#">Academic Calendar</a>
+                        <a href="#">Programme Structure</a>
+                        <a href="timetable.html">Timetable</a>
+                        <a href="#">Bus Schedule</a>
+                    </div>
+                </div>
+                <div class="nav-dropdown">
+                    <a href="#" class="nav-link dropdown-trigger">Portfolio ▾</a>
+                    <div class="dropdown-menu glass-card">
+                        <a href="profile.html">Profile</a>
+                        <a href="#">My Blogger</a>
+                        <a href="#">My Google+</a>
+                        <a href="#">Alumni Relations</a>
+                    </div>
+                </div>
+            </nav>
+            <div class="nav-user">
+                <span class="user-name">Mr./Dr./Mrs. AB Test User</span>
+                <a href="index.html" class="btn-logout">Logout</a>
+            </div>
+        </div>
+    </header>
+
+    <main class="portal-layout container">
+        
+        <aside class="portal-sidebar glass-card animate-enter delay-2">
+            <h3>Finance</h3>
+            <ul class="sidebar-menu">
+                <li><a href="billing.html">My Billing</a></li>
+                <li><a href="payment_history.html" class="active">Payment History</a></li>
+            </ul>
+        </aside>
+
+        <section class="portal-content animate-enter delay-3">
+            
+            <div class="glass-card content-padding">
+                <h2 style="margin-bottom: 20px;">My Payment History</h2>
+                
+                <div class="info-box">
+                    <span class="icon" style="font-size: 18px;">ℹ️</span>
+                    <p>A payment receipt number will be issued when the payment is received by UTAR. However, a payment receipt number would not be issued when the billing amount is "Zero".</p>
+                </div>
+
+                <div class="history-table-container">
+                    <table class="history-table">
+                        <thead>
+                            <tr>
+                                <th style="width: 40px;">No.</th>
+                                <th>Session</th>
+                                <th>Billing Description</th>
+                                <th>Payment Mode</th>
+                                <th>Billing Ref No.</th>
+                                <th>Amount (RM)</th>
+                                <th>Paid Date</th>
+                                <th>Status</th>
+                                <th style="text-align: center;">Receipt</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td class="col-session">202510</td>
+                                <td><a href="#" class="pdf-link"><span class="pdf-icon">📄</span> Pro-forma Invoice</a></td>
+                                <td></td>
+                                <td class="col-ref">U2510K9827364512</td>
+                                <td class="col-amount">53.00</td>
+                                <td>03 Nov 2025</td>
+                                <td>Received</td>
+                                <td class="receipt-cell">P1198234</td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td class="col-session">202510</td>
+                                <td><a href="#" class="pdf-link"><span class="pdf-icon">📄</span> Existing Student Bill</a></td>
+                                <td><span class="badge-payment">Full Payment</span></td>
+                                <td class="col-ref">U2510E4561230987</td>
+                                <td class="col-amount">3,600.00</td>
+                                <td>30 Nov 2025</td>
+                                <td>Received</td>
+                                <td class="receipt-cell">
+                                    <button class="btn-receipt">
+                                        <span class="pdf-icon">📥</span> P1184521
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>3</td>
+                                <td class="col-session">202506</td>
+                                <td><a href="#" class="pdf-link"><span class="pdf-icon">📄</span> Existing Student Bill</a></td>
+                                <td></td>
+                                <td class="col-ref">U2506E1122334455</td>
+                                <td class="col-amount">1,461.50</td>
+                                <td>10 Aug 2025</td>
+                                <td>Received</td>
+                                <td class="receipt-cell">
+                                    <button class="btn-receipt">
+                                        <span class="pdf-icon">📥</span> P1173920
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>4</td>
+                                <td class="col-session">202506</td>
+                                <td><a href="#" class="pdf-link"><span class="pdf-icon">📄</span> Existing Student Bill</a></td>
+                                <td></td>
+                                <td class="col-ref">U2506E9988776655</td>
+                                <td class="col-amount">1,461.50</td>
+                                <td>27 Jul 2025</td>
+                                <td>Received</td>
+                                <td class="receipt-cell">
+                                    <button class="btn-receipt">
+                                        <span class="pdf-icon">📥</span> P1162834
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>5</td>
+                                <td class="col-session">202502</td>
+                                <td><a href="#" class="pdf-link"><span class="pdf-icon">📄</span> Misc Bill</a></td>
+                                <td></td>
+                                <td class="col-ref">U2502Q5544332211</td>
+                                <td class="col-amount">100.00</td>
+                                <td>21 Jun 2025</td>
+                                <td>Received</td>
+                                <td class="receipt-cell">P1159012</td>
+                            </tr>
+                            <tr>
+                                <td>6</td>
+                                <td class="col-session">202502</td>
+                                <td><a href="#" class="pdf-link"><span class="pdf-icon">📄</span> Existing Student Bill</a></td>
+                                <td><span class="badge-payment">Full Payment</span></td>
+                                <td class="col-ref">U2502E7766554433</td>
+                                <td class="col-amount">7,326.00</td>
+                                <td>29 Mar 2025</td>
+                                <td>Received</td>
+                                <td class="receipt-cell">
+                                    <button class="btn-receipt">
+                                        <span class="pdf-icon">📥</span> P1148372
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>7</td>
+                                <td class="col-session">202412</td>
+                                <td><a href="#" class="pdf-link"><span class="pdf-icon">📄</span> Pro-forma Invoice</a></td>
+                                <td></td>
+                                <td class="col-ref">U2412K2233445566</td>
+                                <td class="col-amount">150.00</td>
+                                <td>09 Dec 2024</td>
+                                <td>Received</td>
+                                <td class="receipt-cell">P1135621</td>
+                            </tr>
+                            <tr>
+                                <td>8</td>
+                                <td class="col-session">202410</td>
+                                <td><a href="#" class="pdf-link"><span class="pdf-icon">📄</span> Pro-forma Invoice</a></td>
+                                <td></td>
+                                <td class="col-ref">U2410K9988776655</td>
+                                <td class="col-amount">53.00</td>
+                                <td>25 Oct 2024</td>
+                                <td>Received</td>
+                                <td class="receipt-cell">P1129845</td>
+                            </tr>
+                            <tr>
+                                <td>9</td>
+                                <td class="col-session">202410</td>
+                                <td><a href="#" class="pdf-link"><span class="pdf-icon">📄</span> Existing Student Bill</a></td>
+                                <td><span class="badge-payment">Full Payment</span></td>
+                                <td class="col-ref">U2410E1234567890</td>
+                                <td class="col-amount">2,160.00</td>
+                                <td>29 Nov 2024</td>
+                                <td>Received</td>
+                                <td class="receipt-cell">P1115678</td>
+                            </tr>
+                            <tr>
+                                <td>10</td>
+                                <td class="col-session">202406</td>
+                                <td><a href="#" class="pdf-link"><span class="pdf-icon">📄</span> Existing Student Bill</a></td>
+                                <td><span class="badge-payment">Full Payment</span></td>
+                                <td class="col-ref">U2406E0987654321</td>
+                                <td class="col-amount">7,918.00</td>
+                                <td>17 Jul 2024</td>
+                                <td>Received</td>
+                                <td class="receipt-cell">P1102345</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+
+        </section>
+    </main>
+    <script src="assets/js/main.js"></script>
+</body>
+</html>
