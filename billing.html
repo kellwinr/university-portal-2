@@ -8,28 +8,114 @@
     <link rel="icon" href="assets/img/logo-placeholder.png">
 
     <style>
+        /* --- BILLING TABLE LAYOUT FIX --- */
         .billing-header-row, .billing-data-row {
             display: grid !important;
-            /* Optimized Columns: Wider Ref No (Col 3) and Action (Col 7) */
-            grid-template-columns: 0.8fr 1.5fr 3fr 1.5fr 0.8fr 1.5fr 1.4fr !important;
-            gap: 25px !important; /* Forces columns apart so text doesn't touch */
-            padding: 20px !important;
+            /* Optimized Columns: Adjusted ratios for perfect spacing */
+            grid-template-columns: 0.8fr 1.5fr 1.5fr 1fr 0.8fr 1.2fr 1.4fr !important;
+            gap: 15px !important;
+            padding: 15px 20px !important;
             align-items: center !important;
         }
 
+        .billing-header-row {
+            font-weight: 700;
+            color: #555;
+            border-bottom: 2px solid rgba(0,0,0,0.05);
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .billing-data-row {
+            background: white;
+            border-radius: 12px;
+            margin-top: 10px;
+            transition: transform 0.2s;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.02);
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+        .billing-data-row:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+        }
+
         .data-cell {
+            font-size: 14px;
+            color: #333;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
         }
 
-        /* Forces the button to look correct */
+        /* Special styling for specific cells */
+        .main-info {
+            font-weight: 600;
+            color: #004080;
+            display: flex;
+            flex-direction: column;
+            line-height: 1.2;
+        }
+        .sub-text {
+            font-size: 11px;
+            color: #888;
+            font-weight: 400;
+            margin-top: 2px;
+        }
+        .amount-col {
+            font-weight: 700;
+            color: #d62d2d;
+            font-family: monospace;
+            font-size: 15px;
+        }
+
+        /* --- BUTTON FIX --- */
         .btn-pay-now {
             width: 100% !important;
-            justify-content: center !important;
+            height: 38px;
             display: flex !important;
             align-items: center !important;
-            white-space: nowrap !important;
+            justify-content: center !important;
+            background: #d62d2d;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 600;
+            transition: background 0.2s;
+            gap: 8px; /* Space between logo and text */
+        }
+        .btn-pay-now:hover {
+            background: #b91c1c;
+        }
+        .btn-pay-now img {
+            height: 18px;
+            width: auto;
+            background: white;
+            padding: 2px 4px;
+            border-radius: 3px;
+        }
+
+        /* --- FOOTER GUIDELINES --- */
+        .billing-footer {
+            margin-top: 30px;
+            padding: 20px;
+            background: rgba(255,255,255,0.5);
+            border-radius: 12px;
+            font-size: 13px;
+            color: #555;
+        }
+        .important-note {
+            color: #d62d2d;
+            font-weight: 600;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px dashed rgba(0,0,0,0.1);
+        }
+        .guidelines-list {
+            padding-left: 20px;
+            line-height: 1.6;
         }
     </style>
 </head>
@@ -86,7 +172,7 @@
         <section class="portal-content animate-enter delay-3">
             
             <div class="glass-card content-padding">
-                <h2>My Billing</h2>
+                <h2 style="margin-bottom: 20px;">My Billing</h2>
                 
                 <div class="info-box">
                     <span class="icon">ℹ️</span>
@@ -101,24 +187,23 @@
                         <div>Ref No.</div>
                         <div>Due Date</div>
                         <div>Status</div>
-                        <div class="amount-col">Amount (RM)</div>
-                        <div>Action</div>
+                        <div class="amount-col" style="color:#555; font-family:inherit;">Amount (RM)</div>
+                        <div style="text-align:center;">Action</div>
                     </div>
 
-                    <div class="billing-data-row glass-card">
+                    <div class="billing-data-row">
                         <div class="data-cell">Is. 202510</div>
                         <div class="data-cell main-info">
                             Existing Student Bill
                             <span class="sub-text">Full Payment</span>
                         </div>
-                        <div class="data-cell">202510E000000</div>
+                        <div class="data-cell" style="font-family: monospace; letter-spacing: 0.5px;">202510E000000</div>
                         <div class="data-cell">30 Nov 2025</div>
                         <div class="data-cell"><span class="status-badge success">Valid</span></div>
                         <div class="data-cell amount-col">3,800.00</div>
                         <div class="data-cell">
-                            <button class="btn-pay-now">
-                                <img src="assets/img/Public.gif" alt="PBe" 
-                                     style="height: 20px; width: auto; background: white; padding: 2px; border-radius: 3px; margin-right: 8px;">
+                            <button class="btn-pay-now" onclick="window.open('https://www.pbebank.com/', '_blank')">
+                                <img src="assets/img/Public.gif" alt="PBe">
                                 <span>Pay Now</span>
                             </button>
                         </div>
@@ -128,7 +213,7 @@
                 
                 <div class="billing-footer">
                     <p class="important-note">Note: Your payment will be updated in your "Payment History" in three (3) working days.</p>
-                    <h4>Guidelines for Payment via PBe Online Banking</h4>
+                    <h4 style="margin-bottom: 10px;">Guidelines for Payment via PBe Online Banking</h4>
                     <ol class="guidelines-list">
                         <li>Payment via PBe Online Banking is a service provided by Public Bank to their current and savings account holders.</li>
                         <li>The default daily limit is RM10,000.00. You may need to increase this limit in your PBe profile settings.</li>
