@@ -40,7 +40,7 @@
                     </div>
                 </div>
                 
-                <a href="#" class="nav-link">My Email</a>
+                <a href="https://mail.google.com/" target="_blank" class="nav-link">My Email</a>
             </nav>
 
             <div class="nav-user">
@@ -55,7 +55,7 @@
         <section class="welcome-banner glass-card animate-enter delay-2">
             <div class="banner-text">
                 <h1>Welcome back, AB Test User! 👋</h1>
-                <p>Friday, November 28, 2025 | ID: 02AAA012345</p>
+                <p><span id="current-date">Loading date...</span> | ID: 02AAA012345</p>
             </div>
         </section>
 
@@ -151,8 +151,18 @@
                 </div>
             </div>
             
-        </div> </main>
+        </div> 
+    </main>
 
     <script src="assets/js/main.js"></script>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const dateElement = document.getElementById('current-date');
+            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            const today = new Date();
+            dateElement.textContent = today.toLocaleDateString('en-US', options);
+        });
+    </script>
 </body>
 </html>
